@@ -1,5 +1,12 @@
+import AppLayout from "./layout/AppLayout";
+import Dashboard from "./pages/admin/Dashboard";
+
 function App() {
-  return <div>MediPaw</div>;
+  return (
+    <AppLayout>
+      <Dashboard />
+    </AppLayout>
+  );
 }
 
 export default App;
