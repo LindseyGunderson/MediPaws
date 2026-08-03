@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@import "./tokens.css";
+@import "./typography.css";
+
+
+@layer base {
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+
+        background:
+            var(--color-background);
+
+        color:
+            var(--color-text-primary);
+
+        font-family:
+            var(--font-primary);
+
+        -webkit-font-smoothing:
+            antialiased;
+    }
+
+
+    button,
+    input,
+    textarea,
+    select {
+        font: inherit;
+    }
+
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+}

@@ -1,0 +1,27 @@
+@import url(
+'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap'
+);
+
+
+@theme {
+
+  --font-sans:
+    "Plus Jakarta Sans",
+    sans-serif;
+
+}
+
+
+@layer base {
+
+  h1,
+  h2,
+  h3,
+  h4 {
+
+    letter-spacing:
+      -0.02em;
+
+  }
+
+}
