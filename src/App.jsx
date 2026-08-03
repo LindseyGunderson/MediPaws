@@ -1,10 +1,11 @@
 import AppLayout from "./layout/AppLayout";
-import Dashboard from "./pages/admin/Dashboard";
+import AppRoutes from "./routes/AppRoutes";
+
 
 function App() {
   return (
     <AppLayout>
-      <Dashboard />
+      <AppRoutes />
     </AppLayout>
   );
 }

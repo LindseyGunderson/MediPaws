@@ -1,16 +1,17 @@
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import PageContainer from "../layout/Dashboard";
 
 function AppLayout({ children }) {
   return (
-    <div>
+    <div className="grid min-h-screen grid-cols-[260px_1fr] bg-background">
       <Sidebar />
 
-      <main>
+      <div className="flex flex-col">
         <Header />
 
-        {children}
-      </main>
+        <PageContainer>{children}</PageContainer>
+      </div>
     </div>
   );
 }
