@@ -1,37 +1,70 @@
 export const appointments = [
   {
     id: 1,
+    date: "2026-07-31",
     time: "10:30 AM",
-    pet: "Bella",
+
+    pet: {
+      name: "Bella",
+      species: "Golden Retriever",
+    },
+
     owner: "Sarah Wilson",
+
     type: "Annual Wellness Exam",
-    status: "checkedIn",
+
+    status: "completed",
   },
 
   {
     id: 2,
-    time: "11:15 AM",
-    pet: "Milo",
+    date: "2026-08-04",
+    time: "9:00 AM",
+
+    pet: {
+      name: "Max",
+      species: "Labrador Retriever",
+    },
+
     owner: "James Chen",
+
     type: "Vaccination",
+
     status: "scheduled",
   },
 
   {
     id: 3,
-    time: "1:00 PM",
-    pet: "Luna",
-    owner: "Emma Park",
+    date: "2026-08-04",
+    time: "11:15 AM",
+
+    pet: {
+      name: "Bella",
+      species: "Domestic Shorthair",
+
+    },
+
+    owner: "Emily Park",
+
     type: "Dental Cleaning",
-    status: "inProgress",
+
+    status: "checkedIn",
   },
 
   {
     id: 4,
-    time: "2:30 PM",
-    pet: "Max",
+    date: "2026-08-05",
+    time: "2:00 PM",
+
+    pet: {
+      name: "Luna",
+      species: "Border Collie",
+    },
+
     owner: "David Lee",
+
     type: "Follow Up",
+
     status: "scheduled",
   },
 ];

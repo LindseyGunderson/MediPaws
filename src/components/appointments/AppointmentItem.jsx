@@ -2,7 +2,7 @@ import AppointmentStatusBadge from "./AppointmentStatusBadge";
 
 function AppointmentItem({ appointment }) {
   return (
-    <div
+    <article
       className="
         flex
         items-center
@@ -14,16 +14,22 @@ function AppointmentItem({ appointment }) {
         p-5
       "
     >
-      <div>
-        <p className="font-medium text-text-primary">{appointment.time}</p>
+      <div className="space-y-1">
+        <div className="flex items-center gap-3">
+          <p className="font-medium text-text-primary">{appointment.time}</p>
 
-        <p className="mt-1 text-text-primary">{appointment.pet}</p>
+          <AppointmentStatusBadge status={appointment.status} />
+        </div>
+
+        <p className="text-text-primary">{appointment.pet.name}</p>
+
+        <p className="text-sm text-text-secondary">{appointment.pet.species}</p>
+
+        <p className="text-sm text-text-secondary">{appointment.owner}</p>
 
         <p className="text-sm text-text-secondary">{appointment.type}</p>
       </div>
-
-      <AppointmentStatusBadge status={appointment.status} />
-    </div>
+    </article>
   );
 }
 
