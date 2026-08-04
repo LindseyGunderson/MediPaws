@@ -1,17 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-
-import Dashboard from "../pages/admin/Dashboard";
-import Appointments from "../pages/admin/Appointments";
-import Patients from "../pages/admin/Patients";
+import { routes } from "../config/routes";
 
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} />
-
-      <Route path="/appointments" element={<Appointments />} />
-
-      <Route path="/patients" element={<Patients />} />
+      {routes.map((route) => (
+        <Route key={route.path} path={route.path} element={route.element} />
+      ))}
     </Routes>
   );
 }
