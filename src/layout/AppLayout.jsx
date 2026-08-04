@@ -1,6 +1,6 @@
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import PageContainer from "../layout/Dashboard";
+import PageContainer from "../layout/Header/PageContainer";
 
 function AppLayout({ children }) {
   return (
