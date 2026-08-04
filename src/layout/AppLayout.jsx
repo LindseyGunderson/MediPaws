@@ -4,7 +4,7 @@ import PageContainer from "../layout/Header/PageContainer";
 
 function AppLayout({ children }) {
   return (
-    <div className="grid min-h-screen grid-cols-[260px_1fr] bg-background">
+    <div className="grid min-h-screen grid-cols-[var(--spacing-sidebar)_1fr] bg-background">
       <Sidebar />
 
       <div className="flex flex-col">
