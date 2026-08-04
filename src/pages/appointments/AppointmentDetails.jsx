@@ -1,0 +1,76 @@
+import { useParams } from "react-router-dom";
+
+import { appointments } from "../../data/appointments";
+import { getAppointmentById } from "../../utils/appointments";
+
+import AppointmentStatusBadge from "../../components/appointments/AppointmentStatusBadge";
+
+function AppointmentDetails() {
+  const { id } = useParams();
+
+  const appointment = getAppointmentById(appointments, id);
+
+  if (!appointment) {
+    return (
+      <div>
+        <h2 className="text-xl font-semibold">Appointment not found</h2>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-8">
+      {/* Header */}
+
+      <section>
+        <h1 className="text-2xl font-semibold text-text-primary">
+          {appointment.pet.name}
+        </h1>
+
+        <p className="text-text-secondary">{appointment.pet.species}</p>
+      </section>
+
+      {/* Appointment Information */}
+
+      <section
+        className="
+          rounded-xl
+          border
+          border-border
+          bg-surface
+          p-6
+        "
+      >
+        <div className="flex items-center justify-between">
+          <h2 className="font-semibold">Appointment Details</h2>
+
+          <AppointmentStatusBadge status={appointment.status} />
+        </div>
+
+        <div className="mt-6 space-y-3 text-sm">
+          <p>
+            <span className="text-text-secondary">Date:</span>{" "}
+            {appointment.date}
+          </p>
+
+          <p>
+            <span className="text-text-secondary">Time:</span>{" "}
+            {appointment.time}
+          </p>
+
+          <p>
+            <span className="text-text-secondary">Type:</span>{" "}
+            {appointment.type}
+          </p>
+
+          <p>
+            <span className="text-text-secondary">Owner:</span>{" "}
+            {appointment.owner}
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+export default AppointmentDetails;

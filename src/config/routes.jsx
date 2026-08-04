@@ -1,5 +1,6 @@
 import Dashboard from "../pages/admin/Dashboard";
-import Appointments from "../pages/admin/Appointments";
+import Appointments from "../pages/appointments/Appointments";
+import AppointmentDetails from "../pages/appointments/AppointmentDetails";
 import Patients from "../pages/admin/Patients";
 
 
@@ -15,6 +16,11 @@ export const routes = [
     element: <Appointments />,
     title: "Appointments",
     description: "Manage upcoming veterinary visits.",
+  },
+  {
+    path: "/appointments/:id",
+    element: <AppointmentDetails />,
+    title: "Appointment Details",
   },
   {
     path: "/patients",
