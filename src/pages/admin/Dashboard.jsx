@@ -1,21 +1,17 @@
+import OverviewCard from "../../components/dashboard/OverviewCard";
+import { dashboardOverview } from "../../data/dashboard";
+
 function Dashboard() {
   return (
-    <section>
-      <h1 className="text-3xl font-semibold">Welcome back 👋</h1>
-
-      <p className="mt-2 text-text-secondary">
-        Here's your clinic overview for today.
-      </p>
-
-      <div className="mt-8 rounded-lg border border-border bg-surface p-6">
-        <h2 className="font-semibold">Dashboard Coming Soon</h2>
-
-        <p className="mt-2 text-sm text-text-secondary">
-          Appointment summaries, patient activity, and clinic insights will
-          appear here.
-        </p>
-      </div>
-    </section>
+    <div className="space-y-8">
+      <section>
+        <div className="grid gap-4 md:grid-cols-3">
+          {dashboardOverview.map((card) => (
+            <OverviewCard key={card.id} {...card} />
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }
 
