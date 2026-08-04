@@ -4,6 +4,7 @@ import { appointments } from "../../data/appointments";
 import { getAppointmentById } from "../../utils/appointments";
 
 import AppointmentStatusBadge from "../../components/appointments/AppointmentStatusBadge";
+import AppointmentHeader from "../../components/appointments/AppointmentHeader";
 
 function AppointmentDetails() {
   const { id } = useParams();
@@ -22,15 +23,7 @@ function AppointmentDetails() {
     <div className="space-y-8">
       {/* Header */}
 
-      <section>
-        <h1 className="text-2xl font-semibold text-text-primary">
-          {appointment.pet.name}
-        </h1>
-
-        <p className="text-text-secondary">{appointment.pet.species}</p>
-      </section>
-
-      {/* Appointment Information */}
+      <AppointmentHeader appointment={appointment} />
 
       <section
         className="
