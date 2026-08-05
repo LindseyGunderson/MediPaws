@@ -58,7 +58,7 @@ function AppointmentDetails() {
 
           <p>
             <span className="text-text-secondary">Owner:</span>{" "}
-            {appointment.owner}
+            {appointment.owner.name}
           </p>
         </div>
       </section>

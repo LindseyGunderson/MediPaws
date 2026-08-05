@@ -1,11 +1,12 @@
 import { createContext, useContext, useState } from "react";
 
-import { appointments as initialAppointments } from "../data/appointments";
+import { getAppointmentsWithDetails } from "../helpers/appointments";
 
 const AppointmentContext = createContext();
 
 export function AppointmentProvider({ children }) {
-  const [appointments, setAppointments] = useState(initialAppointments);
+
+const [appointments, setAppointments] = useState(getAppointmentsWithDetails());
 
   function updateAppointmentStatus(id, status) {
     setAppointments((currentAppointments) =>

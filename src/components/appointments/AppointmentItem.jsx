@@ -27,7 +27,7 @@ function AppointmentItem({ appointment }) {
 
         <p className="text-sm text-text-secondary">{appointment.pet.species}</p>
 
-        <p className="text-sm text-text-secondary">{appointment.owner}</p>
+        <p className="text-sm text-text-secondary">{appointment.owner.name}</p>
 
         <p className="text-sm text-text-secondary">{appointment.type}</p>
       </div>

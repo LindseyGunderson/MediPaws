@@ -11,12 +11,14 @@ function Appointments() {
   const [status, setStatus] = useState("all");
 
 const filteredAppointments = appointments.filter((appointment) => {
-  const searchTerm = search.toLowerCase();
+  const searchValue = search.toLowerCase();
+
+  const petName = appointment.pet?.name?.toLowerCase() ?? "";
+
+  const ownerName = appointment.owner?.name?.toLowerCase() ?? "";
 
   const matchesSearch =
-    appointment.pet.name.toLowerCase().includes(searchTerm) ||
-    appointment.owner.toLowerCase().includes(searchTerm) ||
-    appointment.type.toLowerCase().includes(searchTerm);
+    petName.includes(searchValue) || ownerName.includes(searchValue);
 
   const matchesStatus = status === "all" || appointment.status === status;
 

@@ -3,7 +3,6 @@ function AppointmentFilters({ search, setSearch, status, setStatus }) {
     "all",
     "scheduled",
     "checkedIn",
-    "inProgress",
     "completed",
     "cancelled",
   ];

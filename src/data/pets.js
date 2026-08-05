@@ -1,0 +1,32 @@
+export const pets = [
+  {
+    id: 1,
+    ownerId: 1,
+    name: "Bella",
+    species: "Dog",
+    breed: "Golden Retriever",
+    age: 5,
+    weight: "31 kg",
+    notes: "Sensitive stomach",
+  },
+  {
+    id: 2,
+    ownerId: 1,
+    name: "Max",
+    species: "Dog",
+    breed: "Labrador Retriever",
+    age: 3,
+    weight: "28 kg",
+    notes: "No known issues",
+  },
+  {
+    id: 3,
+    ownerId: 2,
+    name: "Gary",
+    species: "Cat",
+    breed: "Domestic Shorthair",
+    age: 4,
+    weight: "5 kg",
+    notes: "",
+  },
+];

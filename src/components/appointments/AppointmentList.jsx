@@ -13,6 +13,16 @@ function AppointmentList({ appointments }) {
     return groups;
   }, {});
 
+
+  if (appointments.length === 0) {
+        return (
+          <div>
+            <p>No appointments found</p>
+          </div>
+        );
+    }
+
+
   return (
     <div className="space-y-8">
       {Object.entries(groupedAppointments).map(([date, appointments]) => (
