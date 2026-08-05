@@ -21,3 +21,11 @@ export function getPetsByOwner(ownerId) {
     (pet) => pet.ownerId === ownerId
   );
 }
+
+
+export function getOwnersWithPets() {
+  return owners.map((owner) => ({
+    ...owner,
+    pets: getPetsByOwner(owner.id),
+  }));
+}

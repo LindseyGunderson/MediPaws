@@ -1,14 +1,17 @@
+import PatientList from "../../components/patients/PatientList";
 
-const Patients = () => {
+function Patients() {
   return (
-    <section>
-      <h1 className="text-3xl font-semibold">Patients</h1>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-semibold">Patients</h1>
 
-      <p className="mt-2 text-text-secondary">
-        Manage patient records and information.
-      </p>
-    </section>
+        <p className="text-text-secondary">Manage pet owners and their pets.</p>
+      </div>
+
+      <PatientList />
+    </div>
   );
 }
 
-export default Patients
+export default Patients;
