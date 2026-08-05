@@ -15,6 +15,18 @@ export function getPetById(id) {
   );
 }
 
+export function getOwnerWithPetsById(id) {
+  const owner = getOwnerById(id);
+
+  if (!owner) {
+    return null;
+  }
+
+  return {
+    ...owner,
+    pets: getPetsByOwner(owner.id),
+  };
+}
 
 export function getPetsByOwner(ownerId) {
   return pets.filter(

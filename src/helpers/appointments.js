@@ -1,5 +1,5 @@
 import { appointments } from "../data/appointments";
-import { getPetById, getOwnerById } from "./patients";
+import { getPetById, getOwnerById, getPetsByOwner } from "./patients";
 
 
 export function getAppointmentsWithDetails() {
@@ -21,4 +21,14 @@ export function getAppointmentsWithDetails() {
     };
 
   });
+}
+
+export function getAppointmentsByOwner(ownerId) {
+  const ownerPets = getPetsByOwner(ownerId);
+
+  return appointments.filter((appointment) =>
+    ownerPets.some(
+      (pet) => Number(pet.id) === Number(appointment.petId)
+    )
+  );
 }

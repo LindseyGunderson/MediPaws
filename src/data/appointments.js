@@ -3,7 +3,7 @@ export const appointments = [
     id: 1,
     petId: 1,
     ownerId: 1,
-    date: "August 4, 2026",
+    date: "August 8, 2026",
     time: "11:15 AM",
     type: "Dental Cleaning",
       pet: {
@@ -14,7 +14,7 @@ export const appointments = [
       owner: {
         name: "Emily Park"
       },
-    status: "completed"
+    status: "scheduled"
   },
   {
     id: 2,

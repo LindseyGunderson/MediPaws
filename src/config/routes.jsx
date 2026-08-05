@@ -2,6 +2,7 @@ import Dashboard from "../pages/admin/Dashboard";
 import Appointments from "../pages/appointments/Appointments";
 import AppointmentDetails from "../pages/appointments/AppointmentDetails";
 import Patients from "../pages/admin/Patients";
+import OwnerProfile from '../pages/admin/OwnerProfile';
 
 
 export const routes = [
@@ -28,4 +29,10 @@ export const routes = [
     title: "Patients",
     description: "View and manage patient records.",
   },
+  {
+    path: "/owners/:id",
+    element: <OwnerProfile />,
+    title: "Pet Owner Profile"
+  }
+
 ];
