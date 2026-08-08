@@ -1,20 +1,20 @@
 import OverviewCard from "../../components/dashboard/OverviewCard";
-import UpcomingAppointments from "../../components/dashboard/UpcomingAppointments";
+import TodaysAppointments from "../../components/dashboard/TodaysAppointments";
 
-import { dashboardOverview } from "../../data/dashboard";
-
-import { appointments } from "../../data/appointments";
+import { getDashboardData } from "../../helpers/dashboard";
 
 function Dashboard() {
+  const { overview, todaysAppointments } = getDashboardData();
+
   return (
     <div className="space-y-8">
       <div className="grid gap-4 md:grid-cols-3">
-        {dashboardOverview.map((card) => (
+        {overview.map((card) => (
           <OverviewCard key={card.id} {...card} />
         ))}
       </div>
 
-      <UpcomingAppointments appointments={appointments} />
+      <TodaysAppointments appointments={todaysAppointments} />
     </div>
   );
 }

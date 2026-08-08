@@ -5,7 +5,7 @@ function OverviewCard({ label, value, details = [] }) {
     <Card>
       <p className="text-sm text-text-secondary">{label}</p>
 
-      <p className="mt-3 text-3xl font-semibold text-text-primary">{value}</p>
+      <p className="mt-2 text-2xl font-semibold text-text-primary">{value}</p>
 
       <div className="mt-4 space-y-1">
         {details.map((item) => (
