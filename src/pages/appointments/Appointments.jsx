@@ -28,12 +28,12 @@ const filteredAppointments = appointments.filter((appointment) => {
   return (
     <div className="space-y-8">
       <section>
-        <h2 className="text-xl font-semibold text-text-primary">
+        <h1 className="text-xl font-semibold text-text-primary">
           Appointments
-        </h2>
+        </h1>
 
         <p className="mt-1 text-sm text-text-secondary">
-          View and manage upcoming veterinary visits.
+          View and manage veterinary appointments.
         </p>
       </section>
 

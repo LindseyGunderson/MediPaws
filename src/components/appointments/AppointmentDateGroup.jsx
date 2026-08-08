@@ -9,9 +9,16 @@ function AppointmentDateGroup({ date, appointments }) {
 
   return (
     <section className="space-y-4">
-      <h2 className="text-lg font-semibold text-text-primary">
-        {formattedDate}
-      </h2>
+      <div className="flex items-baseline justify-between">
+        <h2 className="text-lg font-semibold text-text-primary">
+          {formattedDate}
+        </h2>
+
+        <span className="text-sm text-text-secondary">
+          {appointments.length}{" "}
+          {appointments.length === 1 ? "appointment" : "appointments"}
+        </span>
+      </div>
 
       <div className="space-y-3">
         {appointments.map((appointment) => (
