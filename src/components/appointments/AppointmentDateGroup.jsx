@@ -8,7 +8,7 @@ function AppointmentDateGroup({ date, appointments }) {
   });
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-5">
       <div className="flex items-baseline justify-between">
         <h2 className="text-lg font-semibold text-text-primary">
           {formattedDate}
@@ -20,7 +20,7 @@ function AppointmentDateGroup({ date, appointments }) {
         </span>
       </div>
 
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {appointments.map((appointment) => (
           <AppointmentItem key={appointment.id} appointment={appointment} />
         ))}

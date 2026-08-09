@@ -46,9 +46,17 @@ export function getDashboardData() {
     );
   });
 
-  const needsAttention = todaysAppointments.filter(
-    (appointment) => appointment.status === "checkedIn"
-  ).length;
+    const needsAttention = appointments.filter((appointment) => {
+        const appointmentDate = new Date(`${appointment.date}T00:00:00`);
+        const today = new Date();
+
+        today.setHours(0, 0, 0, 0);
+
+        return (
+            appointmentDate < today &&
+            appointment.status === "scheduled"
+        );
+    }).length;
 
   return {
     todaysAppointments,
@@ -85,7 +93,7 @@ export function getDashboardData() {
         value: needsAttention,
         details: [
           {
-            label: "Checked in",
+            label: "Overdue appointments",
             value: needsAttention,
           },
         ],
