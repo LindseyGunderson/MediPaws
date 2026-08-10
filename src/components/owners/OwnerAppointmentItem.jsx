@@ -22,7 +22,7 @@ function OwnerAppointmentItem({ appointment }) {
         </p>
         <p>{appointment.type}</p>
       </div>
-      <AppointmentStatusBadge status={appointment.status} />
+      <AppointmentStatusBadge appointment={appointment} />
     </div>
   );
 }

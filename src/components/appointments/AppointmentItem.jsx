@@ -10,7 +10,7 @@ function AppointmentItem({ appointment }) {
       <Card className="flex flex-col gap-5 transition hover:border-primary/40 hover:shadow-md">
         {/* Status */}
         <div className="flex justify-end">
-          <AppointmentStatusBadge status={appointment.status} />
+          <AppointmentStatusBadge appointment={appointment} />
         </div>
 
         {/* Pet */}

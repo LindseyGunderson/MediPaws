@@ -1,11 +1,20 @@
-import { appointmentStatuses } from "../../config/appointmentStatus";
+import { getAppointmentDisplayStatus } from "../../helpers/appointments";
 
-function AppointmentStatusBadge({ status }) {
-  const statusInfo = appointmentStatuses[status];
+function AppointmentStatusBadge({ appointment }) {
+  const displayStatus = getAppointmentDisplayStatus(appointment);
+
+  const statusStyles = {
+    scheduled: "bg-info/10 text-info",
+    inProgress: "bg-primary-light/50 text-primary",
+    checkedIn: "bg-purple-50 text-purple-700",
+    completed: "bg-success/10 text-green-700",
+    cancelled: "bg-gray-100 text-gray-600",
+    attention: "bg-amber-100 text-amber-800",
+  };
 
   return (
     <span
-      className="
+      className={`
         inline-flex
         items-center
         rounded-full
@@ -13,11 +22,10 @@ function AppointmentStatusBadge({ status }) {
         py-1
         text-xs
         font-medium
-        bg-surface-muted
-        text-text-secondary
-      "
+        ${statusStyles[displayStatus.tone]}
+      `}
     >
-      {statusInfo.label}
+      {displayStatus.label}
     </span>
   );
 }

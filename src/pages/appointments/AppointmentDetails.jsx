@@ -37,7 +37,7 @@ function AppointmentDetails() {
         <div className="flex items-center justify-between">
           <h2 className="font-semibold">Appointment Details</h2>
 
-          <AppointmentStatusBadge status={appointment.status} />
+          <AppointmentStatusBadge appointment={appointment} />
         </div>
 
         <div className="mt-6 space-y-3 text-sm">
