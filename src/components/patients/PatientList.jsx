@@ -1,18 +1,22 @@
 import PatientRow from "./PatientRow";
-import { getOwnersWithPets } from "../../helpers/patients";
+import Card from "../ui/Card";
 
-function PatientList() {
-  const owners = getOwnersWithPets();
+function PatientList({ owners }) {
+
+  if (owners.length === 0) {
+    return (
+      <Card className="py-12 text-center">
+        <p className="font-medium text-text-primary">No patients found</p>
+
+        <p className="mt-1 text-sm text-text-secondary">
+          Try adjusting your search.
+        </p>
+      </Card>
+    );
+  }
 
   return (
-    <div
-    className="
-        flex
-        flex-col
-        gap-4
-        rounded-lg
-    "
-    >
+    <div className="space-y-3">
       {owners.map((owner) => (
         <PatientRow key={owner.id} owner={owner} />
       ))}
