@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom";
 import { appointments } from "../../data/appointments";
 import { getAppointmentById } from "../../utils/appointments";
 
-import AppointmentStatusBadge from "../../components/appointments/AppointmentStatusBadge";
 import AppointmentHeader from "../../components/appointments/AppointmentHeader";
+import AppointmentInfo from "../../components/appointments/AppointmentInfo";
+import AppointmentActions from "../../components/appointments/AppointmentActions";
+import AppointmentPatientInfo from "../../components/appointments/AppointmentPatientInfo";
 
 function AppointmentDetails() {
   const { id } = useParams();
@@ -13,55 +15,29 @@ function AppointmentDetails() {
 
   if (!appointment) {
     return (
-      <div>
-        <h2 className="text-xl font-semibold">Appointment not found</h2>
+      <div className="mx-auto max-w-5xl">
+        <h2 className="text-xl font-semibold text-text-primary">
+          Appointment not found
+        </h2>
+
+        <p className="mt-1 text-sm text-text-secondary">
+          The appointment you're looking for could not be found.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-
+    <div className="mx-auto max-w-5xl space-y-8">
       <AppointmentHeader appointment={appointment} />
 
-      <section
-        className="
-          rounded-xl
-          border
-          border-border
-          bg-surface
-          p-6
-        "
-      >
-        <div className="flex items-center justify-between">
-          <h2 className="font-semibold">Appointment Details</h2>
+      <AppointmentInfo appointment={appointment} />
 
-          <AppointmentStatusBadge appointment={appointment} />
-        </div>
+      <AppointmentPatientInfo appointment={appointment} />
 
-        <div className="mt-6 space-y-3 text-sm">
-          <p>
-            <span className="text-text-secondary">Date:</span>{" "}
-            {appointment.date}
-          </p>
-
-          <p>
-            <span className="text-text-secondary">Time:</span>{" "}
-            {appointment.time}
-          </p>
-
-          <p>
-            <span className="text-text-secondary">Type:</span>{" "}
-            {appointment.type}
-          </p>
-
-          <p>
-            <span className="text-text-secondary">Owner:</span>{" "}
-            {appointment.owner.name}
-          </p>
-        </div>
-      </section>
+      <div className="flex justify-end border-t border-border pt-6">
+        <AppointmentActions appointment={appointment} />
+      </div>
     </div>
   );
 }

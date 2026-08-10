@@ -3,12 +3,15 @@ import { useAppointments } from "../../context/AppointmentContext";
 function AppointmentActions({ appointment }) {
   const { updateAppointmentStatus } = useAppointments();
 
-  if (appointment.status === "completed") {
+  if (
+    appointment.status === "completed" ||
+    appointment.status === "cancelled"
+  ) {
     return null;
   }
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap items-center gap-3">
       {appointment.status === "scheduled" && (
         <>
           <button
@@ -16,14 +19,14 @@ function AppointmentActions({ appointment }) {
             className="
               rounded-lg
               bg-primary
-              px-4
+              px-3.5
               py-2
               text-sm
               font-medium
               text-white
               transition
-              cursor-pointer
               hover:bg-primary-dark
+              cursor-pointer
             "
           >
             Check In
@@ -35,14 +38,14 @@ function AppointmentActions({ appointment }) {
               border
               border-border
               bg-surface
-              px-4
+              px-3.5
               py-2
               text-sm
               font-medium
               text-text-primary
               transition
-              cursor-pointer
               hover:bg-surface-muted
+              cursor-pointer
             "
           >
             Edit
@@ -50,18 +53,17 @@ function AppointmentActions({ appointment }) {
 
           <button
             className="
-              rounded-lg
-              border
-              border-error
-              bg-surface
-              px-4
+              px-3.5
               py-2
               text-sm
               font-medium
-              text-error
+              text-danger
+              rounded-lg
+              border
+              border-danger
               transition
+              hover:text-error-dark
               cursor-pointer
-              hover:bg-error-light
             "
           >
             Cancel
@@ -75,14 +77,14 @@ function AppointmentActions({ appointment }) {
           className="
             rounded-lg
             bg-primary
-            px-4
+            px-3.5
             py-2
             text-sm
             font-medium
             text-white
             transition
-            cursor-pointer
             hover:bg-primary-dark
+            cursor-pointer
           "
         >
           Mark Complete

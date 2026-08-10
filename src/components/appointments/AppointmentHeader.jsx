@@ -1,29 +1,46 @@
-import AppointmentActions from "./AppointmentActions";
+import { ChevronLeft } from "lucide-react";
+import { Link } from "react-router-dom";
+import { formatDate } from "../../utils/dates";
+
+import AppointmentStatusBadge from "./AppointmentStatusBadge";
 
 function AppointmentHeader({ appointment }) {
   return (
-    <section
-      className="
-        flex
-        items-start
-        justify-between
-        gap-6
-      "
-    >
-      <div>
-        <h1 className="text-2xl font-semibold text-text-primary">
-          {appointment.pet.name}
-        </h1>
+    <header className="space-y-7">
+      <Link
+        to="/appointments"
+        className="
+          inline-flex
+          items-center
+          gap-1.5
+          text-sm
+          text-text-secondary
+          transition
+          hover:text-text-primary
+        "
+      >
+        <ChevronLeft size={16} />
+        Appointments
+      </Link>
 
-        <p className="mt-1 text-text-secondary">{appointment.pet.species}</p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold text-text-primary">
+            {appointment.pet.name}
+          </h1>
 
-        <p className="mt-1 text-sm text-text-secondary">
-          Owner: {appointment.owner.name}
-        </p>
+          <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-text-secondary">
+            <span>{appointment.type}</span>
+            <span aria-hidden="true">•</span>
+            <span>
+              {formatDate(appointment.date)} - {appointment.time}
+            </span>
+          </div>
+        </div>
+
+        <AppointmentStatusBadge appointment={appointment} />
       </div>
-
-      <AppointmentActions appointment={appointment} />
-    </section>
+    </header>
   );
 }
 

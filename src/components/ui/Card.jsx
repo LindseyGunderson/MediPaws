@@ -2,11 +2,10 @@ function Card({ children, className = "" }) {
   return (
     <div
       className={`
-        rounded-xl
-        border
-        border-border
+        rounded-lg
         bg-surface
-        p-5
+        p-6
+        shadow-card
         ${className}
       `}
     >
