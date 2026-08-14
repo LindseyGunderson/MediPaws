@@ -10,16 +10,21 @@ function TodaysAppointments({ appointments }) {
 
   return (
     <section className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-baseline justify-between gap-4">
         <div>
           <h2 className="text-lg font-semibold text-text-primary">
             Today's Appointments
           </h2>
 
-          <p className="text-sm text-text-secondary">
+          <p className="mt-1 text-sm text-text-secondary">
             Appointments scheduled for today
           </p>
         </div>
+
+        <span className="text-sm font-medium text-text-secondary">
+          {todaysAppointments.length}{" "}
+          {todaysAppointments.length === 1 ? "appointment" : "appointments"}
+        </span>
       </div>
 
       {todaysAppointments.length > 0 ? (
@@ -29,10 +34,16 @@ function TodaysAppointments({ appointments }) {
           ))}
         </div>
       ) : (
-        <Card>
-          <p className="text-sm text-text-secondary">
-            No appointments scheduled for today.
-          </p>
+        <Card className="flex items-center justify-center py-10">
+          <div className="text-center">
+            <p className="font-medium text-text-primary">
+              No appointments today
+            </p>
+
+            <p className="mt-1 text-sm text-text-secondary">
+              Your schedule is clear.
+            </p>
+          </div>
         </Card>
       )}
     </section>
