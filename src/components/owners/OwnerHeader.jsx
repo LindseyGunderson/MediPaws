@@ -3,7 +3,6 @@ function OwnerHeader({ owner }) {
 
   return (
     <section>
-      <div>
         <h1 className="text-3xl font-semibold tracking-tight text-text-primary">
           {owner.name}
         </h1>
@@ -15,7 +14,6 @@ function OwnerHeader({ owner }) {
             {petCount} {petCount === 1 ? "pet" : "pets"}
           </span>
         </div>
-      </div>
     </section>
   );
 }

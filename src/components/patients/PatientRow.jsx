@@ -1,7 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import PetBadge from "./PetBadge";
+import PetSummary from "./PetSummay";
 import Card from "../ui/Card";
 
 export default function PatientRow({ owner }) {
@@ -14,22 +14,32 @@ export default function PatientRow({ owner }) {
       className="
         group
         block
-      "
-    >
+        rounded-lg
+        focus:outline-none
+        focus-visible:ring-2
+        focus-visible:ring-primary/30
+        "
+      >
       <Card
         className="
-          grid
-          grid-cols-1 
-          md:grid-cols-3
-          items-center
-          gap-6
-          px-5
-          py-5
-        "
+        grid
+        grid-cols-1
+        items-center
+        gap-6
+        px-5
+        py-5
+        transition
+        duration-150
+        group-hover:-translate-y-0.5
+        group-hover:shadow-card-hover
+        md:grid-cols-3
+      "
       >
         {/* Owner */}
         <div className="min-w-0">
-          <h3 className="font-medium text-text-primary">{owner.name}</h3>
+          <h3 className="text-base font-semibold text-text-primary">
+            {owner.name}
+          </h3>
 
           <p className="mt-0.5 truncate text-sm text-text-secondary">
             {owner.email}
@@ -39,25 +49,21 @@ export default function PatientRow({ owner }) {
         {/* Pets */}
         <div className="flex flex-col gap-2">
           {owner.pets.length === 0 ? (
-            <span className="text-sm text-text-secondary">
-              No pets listed
-            </span>
-          ) :(
-              visiblePets.map((pet) => (
-                <PetBadge key={pet.id} pet={pet} />
-              ))
+            <span className="text-sm text-text-secondary">No pets listed</span>
+          ) : (
+            visiblePets.map((pet) => <PetSummary key={pet.id} pet={pet} />)
           )}
         </div>
 
         {/* Count + Action */}
-        <div className="flex items-center justify-end gap-3">
-          <span className="text-sm text-text-secondary">
-            {remainingPets > 0 && (
-              <span className="text-sm text-text-secondary">
-                +{remainingPets} more {remainingPets === 1 ? "pet" : "pets"}
-              </span>
-            )}
-          </span>
+        <div className="flex items-center justify-between gap-3 md:justify-end">
+          {remainingPets > 0 ? (
+            <span className="text-sm text-text-secondary">
+              +{remainingPets} {remainingPets === 1 ? "more pet" : "more pets"}
+            </span>
+          ) : (
+            <span />
+          )}
 
           <ChevronRight
             size={18}

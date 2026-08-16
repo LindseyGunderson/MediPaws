@@ -3,25 +3,33 @@ import { useState } from "react";
 import PatientList from "../../components/patients/PatientList";
 import SearchInput from "../../components/ui/SearchInput";
 
-import { getOwnersWithPets } from "../../helpers/patients";
-import { filterOwnersBySearch } from "../../helpers/patients";
+import {
+  getOwnersWithPets,
+  filterOwnersBySearch,
+} from "../../helpers/patients";
 
 function Patients() {
   const [search, setSearch] = useState("");
 
   const owners = getOwnersWithPets();
-
   const filteredOwners = filterOwnersBySearch(owners, search);
 
-  return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-semibold text-text-primary">Patients</h1>
+  const totalPets = owners.reduce(
+    (total, owner) => total + owner.pets.length,
+    0,
+  );
 
-        <p className="mt-1 text-text-secondary">
+  return (
+    <div className="space-y-10">
+      <section className="space-y-2">
+        <h1 className="text-3xl font-semibold tracking-tight text-text-primary">
+          Patients
+        </h1>
+
+        <p className="text-sm leading-6 text-text-secondary">
           Manage pet owners and their pets.
         </p>
-      </div>
+      </section>
 
       <SearchInput
         value={search}
@@ -29,7 +37,18 @@ function Patients() {
         placeholder="Search patients or owners..."
       />
 
-      <PatientList owners={filteredOwners} />
+      <section className="space-y-4">
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-text-secondary">
+            {filteredOwners.length}{" "}
+            {filteredOwners.length === 1 ? "owner" : "owners"}
+            {" · "}
+            {totalPets} pets
+          </p>
+        </div>
+
+        <PatientList owners={filteredOwners} />
+      </section>
     </div>
   );
 }

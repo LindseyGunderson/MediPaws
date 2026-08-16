@@ -29,7 +29,7 @@ function OwnerProfile() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl space-y-10">
+    <div className="mx-auto max-w-6xl space-y-12">
       {/* Breadcrumb */}
       <Link
         to="/patients"
@@ -45,27 +45,27 @@ function OwnerProfile() {
         <ChevronLeft size={16} /> Back to Patients
       </Link>
 
-        {/* Header */}
-        <OwnerHeader owner={owner} />
+      {/* Header */}
+      <OwnerHeader owner={owner} />
 
-        <div className="border-t border-border pt-10">
-          {/* Contact + Notes */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <OwnerContactInfo owner={owner} />
-            <OwnerPetNotes />
-          </div>
-        </div>
-
-        {/* Pets */}
-        <div className="border-t border-border pt-10">
-          <OwnerPets owner={owner} />
-        </div>
-
-        {/* Appointments */}
-        <div className="border-t border-border pt-10">
-          <OwnerAppointments owner={owner} />
+      <div className="border-t border-border pt-10">
+        {/* Contact + Notes */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <OwnerContactInfo owner={owner} />
+          <OwnerPetNotes />
         </div>
       </div>
+
+      {/* Pets */}
+      <div className="border-t border-border pt-10">
+        <OwnerPets owner={owner} />
+      </div>
+
+      {/* Appointments */}
+      <div className="border-t border-border pt-10">
+        <OwnerAppointments owner={owner} />
+      </div>
+    </div>
   );
 }
 

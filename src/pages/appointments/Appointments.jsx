@@ -11,7 +11,7 @@ function Appointments() {
   const [status, setStatus] = useState("all");
 
 const filteredAppointments = appointments.filter((appointment) => {
-  const searchValue = search.toLowerCase();
+  const searchValue = search.trim().toLowerCase();
 
   const petName = appointment.pet?.name?.toLowerCase() ?? "";
 
@@ -26,13 +26,13 @@ const filteredAppointments = appointments.filter((appointment) => {
 });
 
   return (
-    <div className="space-y-8">
-      <section>
-        <h1 className="text-xl font-semibold text-text-primary">
+    <div className="space-y-10">
+      <section className="space-y-2">
+        <h1 className="text-3xl font-semibold tracking-tight text-text-primary">
           Appointments
         </h1>
 
-        <p className="mt-1 text-sm text-text-secondary">
+        <p className="text-sm leading-6 text-text-secondary">
           View and manage veterinary appointments.
         </p>
       </section>
