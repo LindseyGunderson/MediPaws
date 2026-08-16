@@ -1,4 +1,9 @@
 import { appointments } from "../data/appointments";
+import {
+  CalendarDays,
+  Clock3,
+  AlertCircle,
+} from "lucide-react";
 
 function getToday() {
   const today = new Date();
@@ -32,19 +37,28 @@ export function getDashboardData() {
       appointment.status !== "cancelled"
   ).length;
 
-  const soonAppointments = todaysAppointments.filter((appointment) => {
-    const appointmentTime = getAppointmentDateTime(appointment);
+const soonAppointments = todaysAppointments.filter((appointment) => {
+  const appointmentTime = getAppointmentDateTime(appointment);
 
-    const twoHoursFromNow = new Date(
-      now.getTime() + 2 * 60 * 60 * 1000
-    );
+  const twoHoursFromNow = new Date(
+    now.getTime() + 2 * 60 * 60 * 1000
+  );
 
-    return (
-      appointment.status === "scheduled" &&
-      appointmentTime >= now &&
-      appointmentTime <= twoHoursFromNow
-    );
-  });
+  return (
+    appointment.status === "scheduled" &&
+    appointmentTime >= now &&
+    appointmentTime <= twoHoursFromNow
+  );
+});
+
+const nextAppointment = [...soonAppointments].sort(
+  (a, b) =>
+    getAppointmentDateTime(a) - getAppointmentDateTime(b)
+)[0];
+
+const nextAppointmentTime = nextAppointment
+  ? nextAppointment.time
+  : "None";
 
     const needsAttention = appointments.filter((appointment) => {
         const appointmentDate = new Date(`${appointment.date}T00:00:00`);
@@ -65,6 +79,8 @@ export function getDashboardData() {
         id: "today",
         label: "Today's Appointments",
         value: todaysAppointments.length,
+        icon: CalendarDays,
+        accent: "primary",
         details: [
           {
             label: "Completed",
@@ -80,10 +96,12 @@ export function getDashboardData() {
         id: "soon",
         label: "Soon",
         value: soonAppointments.length,
+        icon: Clock3,
+        accent: "warning",
         details: [
           {
             label: "Next 2 hours",
-            value: "",
+            value: nextAppointmentTime,
           },
         ],
       },
@@ -91,9 +109,14 @@ export function getDashboardData() {
         id: "attention",
         label: "Needs Attention",
         value: needsAttention,
+        icon: AlertCircle,
+        accent: needsAttention > 0 ? "error" : "primary",
         details: [
           {
-            label: "Overdue appointments",
+            label:
+              needsAttention > 0
+                ? "Overdue appointments"
+                : "No overdue appointments",
             value: needsAttention,
           },
         ],

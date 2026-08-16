@@ -1,72 +1,72 @@
 import { Link } from "react-router-dom";
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight } from "lucide-react";
+import PetAvatar from "../pets/PetAvatar";
 
-import Card from "../ui/Card";
 import AppointmentStatusBadge from "./AppointmentStatusBadge";
 
-function AppointmentItem({ appointment }) {
+function AppointmentItem({ appointment, isLast }) {
+
   return (
-    <Link to={`/appointments/${appointment.id}`} className="group block">
-      <Card className="flex flex-col gap-5 transition hover:border-primary/40 hover:shadow-md">
-        {/* Status */}
-        <div className="flex justify-end">
-          <AppointmentStatusBadge appointment={appointment} />
+    <Link
+      to={`/appointments/${appointment.id}`}
+      className={`
+        group
+        flex
+        items-center
+        gap-6
+        px-6
+        py-5
+        transition-colors
+        duration-150
+        hover:bg-surface-muted
+        ${!isLast ? "border-b border-border/70" : ""}
+      `}
+    >
+      {/* Time */}
+      <div className="w-18 shrink-0">
+        <p className="text-base font-semibold tracking-tight text-text-primary">
+          {appointment.time}
+        </p>
+      </div>
+
+      <div className="h-8 w-px bg-border/70" />
+
+      <div className="flex min-w-0 flex-1 items-center gap-4">
+        <PetAvatar pet={appointment.pet} />
+
+        <div className="min-w-0">
+          <p className="font-medium text-text-primary">
+            {appointment.pet.name}
+          </p>
+
+          <p className="mt-0.5 text-sm text-text-secondary">
+            {appointment.type}
+          </p>
         </div>
+      </div>
 
-        {/* Pet */}
-        <div className="flex items-center gap-4">
-          <img
-            src="https://images.ctfassets.net/m5ehn3s5t7ec/KtxCRW7y0LXNYcn6BHPPD/065b05bda2e516ea6a5887ce9856d1db/Golden_Retriever__Price.webp"
-            alt=""
-            className="h-15 w-15 rounded-full border-3 border-primary object-cover"
-          />
+      {/* Owner */}
+      <div className="hidden w-36 shrink-0 md:block">
+        <p className="text-sm text-text-secondary">{appointment.owner.name}</p>
+      </div>
 
-          <div className="min-w-0 flex-1">
-            <p className="text-lg font-semibold text-text-primary">
-              {appointment.pet.name}
-            </p>
+      {/* Status */}
+      <div className="shrink-0">
+        <AppointmentStatusBadge appointment={appointment} />
+      </div>
 
-            <p className="mt-1 text-sm text-text-secondary">
-              {appointment.type}
-            </p>
-          </div>
-
-          <ChevronRight
-            size={20}
-            className="
-              shrink-0
-              text-text-secondary
-              transition-transform
-              group-hover:translate-x-1
-            "
-          />
-        </div>
-
-        {/* Details */}
-        <div className="border-t border-border pt-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-text-secondary">
-                Owner
-              </p>
-
-              <p className="mt-1 text-sm font-medium text-text-primary">
-                {appointment.owner.name}
-              </p>
-            </div>
-
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-text-secondary">
-                Time
-              </p>
-
-              <p className="mt-1 text-sm font-medium text-text-primary">
-                {appointment.time}
-              </p>
-            </div>
-          </div>
-        </div>
-      </Card>
+      {/* Action */}
+      <ChevronRight
+        size={18}
+        className="
+          shrink-0
+          text-text-secondary
+          transition-transform
+          duration-150
+          group-hover:translate-x-0.5
+          group-hover:text-text-primary
+        "
+      />
     </Link>
   );
 }

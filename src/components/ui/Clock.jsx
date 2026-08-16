@@ -24,9 +24,12 @@ function LiveClock() {
   });
 
   return (
-    <div className="text-right">
-      <p className="text-sm font-medium text-text-primary">{date}</p>
-      <p className="text-sm text-text-secondary">{time}</p>
+    <div className="border-l border-border/70 pl-6 text-right">
+      <p className="text-sm font-medium text-text-secondary">{date}</p>
+
+      <p className="mt-1 text-2xl font-semibold tracking-tight text-text-primary">
+        {time}
+      </p>
     </div>
   );
 }

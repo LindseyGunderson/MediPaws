@@ -5,29 +5,63 @@ import Clock from "../../components/ui/Clock";
 import { getDashboardData } from "../../helpers/dashboard";
 
 function Dashboard() {
+
+  
   const { overview, todaysAppointments } = getDashboardData();
 
   return (
-    <div className="space-y-10">
-      <header className="flex items-start justify-between border-b border-border pb-8">
+    <div className="space-y-14">
+      {/* Welcome */}
+      <header
+        className="
+          flex
+          flex-col
+          gap-8
+          border-b
+          border-border/70
+          pb-10
+          sm:flex-row
+          sm:items-end
+          sm:justify-between
+        "
+      >
         <div>
-          <h1 className="text-2xl font-semibold text-text-primary">
+          <h1
+            className="
+              text-3xl
+              font-semibold
+              tracking-tight
+              text-text-primary
+              sm:text-4xl
+            "
+          >
             Good morning, Sarah
           </h1>
-          <p className="mt-1 text-sm text-text-secondary">
-            Here's what's happening at the clinic today.
-          </p>
         </div>
 
         <Clock />
       </header>
 
-      <div className="grid gap-5 md:grid-cols-3">
-        {overview.map((card) => (
-          <OverviewCard key={card.id} {...card} />
-        ))}
-      </div>
+      {/* Overview */}
+      <section className="space-y-5">
+        <div>
+          <h2 className="text-xl font-semibold tracking-tight text-text-primary">
+            Today at a glance
+          </h2>
 
+          <p className="mt-1 text-sm text-text-secondary">
+            A quick look at today's clinic activity.
+          </p>
+        </div>
+
+        <div className="mt-6 grid gap-5 md:grid-cols-3">
+          {overview.map((card) => (
+            <OverviewCard key={card.id} {...card} />
+          ))}
+        </div>
+      </section>
+
+      {/* Appointments */}
       <TodaysAppointments appointments={todaysAppointments} />
     </div>
   );

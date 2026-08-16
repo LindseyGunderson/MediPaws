@@ -2,17 +2,11 @@ import AppointmentItem from "../appointments/AppointmentItem";
 import Card from "../ui/Card";
 
 function TodaysAppointments({ appointments }) {
-
-  const todaysAppointments = appointments.filter(
-    (appointment) => appointment.date === "2026-08-08",
-  );
-
-
   return (
-    <section className="space-y-4">
-      <div className="flex items-baseline justify-between gap-4">
+    <section className="space-y-5">
+      <div className="flex items-end justify-between gap-4">
         <div>
-          <h2 className="text-lg font-semibold text-text-primary">
+          <h2 className="text-xl font-semibold tracking-tight text-text-primary">
             Today's Appointments
           </h2>
 
@@ -21,20 +15,24 @@ function TodaysAppointments({ appointments }) {
           </p>
         </div>
 
-        <span className="text-sm font-medium text-text-secondary">
-          {todaysAppointments.length}{" "}
-          {todaysAppointments.length === 1 ? "appointment" : "appointments"}
+        <span className="shrink-0 text-sm font-medium text-text-secondary">
+          {appointments.length}{" "}
+          {appointments.length === 1 ? "appointment" : "appointments"}
         </span>
       </div>
 
-      {todaysAppointments.length > 0 ? (
-        <div className="space-y-3">
-          {todaysAppointments.map((appointment) => (
-            <AppointmentItem key={appointment.id} appointment={appointment} />
+      {appointments.length > 0 ? (
+        <Card className="overflow-hidden p-0">
+          {appointments.map((appointment, index) => (
+            <AppointmentItem
+              key={appointment.id}
+              appointment={appointment}
+              isLast={index === appointments.length - 1}
+            />
           ))}
-        </div>
+        </Card>
       ) : (
-        <Card className="flex items-center justify-center py-10">
+        <Card className="flex min-h-40 items-center justify-center">
           <div className="text-center">
             <p className="font-medium text-text-primary">
               No appointments today
