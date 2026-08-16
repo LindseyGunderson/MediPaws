@@ -1,8 +1,7 @@
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Clock3 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { formatDate } from "../../utils/dates";
-
 import AppointmentStatusBadge from "./AppointmentStatusBadge";
+import AppointmentActions from "./AppointmentActions";
 
 function AppointmentHeader({ appointment }) {
   return (
@@ -12,34 +11,52 @@ function AppointmentHeader({ appointment }) {
         className="
           inline-flex
           items-center
-          gap-1.5
+          gap-1
           text-sm
+          font-medium
           text-text-secondary
-          transition
+          transition-colors
           hover:text-text-primary
         "
       >
         <ChevronLeft size={16} />
-        Appointments
+        Back to Appointments
       </Link>
 
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h1 className="text-3xl font-semibold text-text-primary">
+          <AppointmentStatusBadge appointment={appointment} />
+
+          <h1 className="text-3xl font-semibold tracking-tight text-text-primary ml-2">
             {appointment.pet.name}
           </h1>
-
-          <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-text-secondary">
-            <span>{appointment.type}</span>
-            <span aria-hidden="true">•</span>
-            <span>
-              {formatDate(appointment.date)} - {appointment.time}
-            </span>
-          </div>
         </div>
 
-        <AppointmentStatusBadge appointment={appointment} />
+        <div
+          className="
+            flex
+            flex-col
+            items-start
+            gap-4
+            sm:items-end
+          "
+        >
+          <div className="flex flex-col items-center gap-3">
+            <div className="text-right">
+              <p className="mt-0.5 text-xs text-text-secondary">
+                Appointment time
+              </p>
+              <div className="flex items-center justify-end gap-1.5">
+                <Clock3 size={15} className="text-primary" aria-hidden="true" />
+                <p className="text-lg font-semibold tracking-tight text-text-primary">
+                  {appointment.time}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+        <AppointmentActions appointment={appointment} />
     </header>
   );
 }

@@ -1,46 +1,82 @@
-import { Cat, Dog, PawPrint, UserRound } from "lucide-react";
+import { UserRound } from "lucide-react";
+
 import Card from "../ui/Card";
+import PetAvatar from "../pets/PetAvatar";
 
 function AppointmentPatientInfo({ appointment }) {
   const { pet, owner } = appointment;
 
-  const PetIcon =
-    pet.species.toLowerCase() === "dog"
-      ? Dog
-      : pet.species.toLowerCase() === "cat"
-        ? Cat
-        : PawPrint;
-
   return (
-    <div className="grid gap-5 md:grid-cols-2">
-      <Card>
-        <p className="text-xs font-medium text-text-secondary">Pet</p>
-
-        <div className="mt-4 flex items-center gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center text-text-secondary">
-            <PetIcon size={18} />
-          </div>
-
-          <div>
-            <p className="font-medium text-text-primary">{pet.name}</p>
-
-            <p className="mt-0.5 text-sm text-text-secondary">{pet.species}</p>
-          </div>
+    <section>
+      <div>
+        <h2 className="text-lg font-semibold text-text-primary mb-4">
+          Patient & Owner
+        </h2>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          {/* Patient */}
+          <Card>
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-text-primary">
+                Patient
+              </h2>
+              <span
+                className="
+                  rounded-full
+                  bg-primary/10
+                  px-2.5
+                  py-1
+                  text-xs
+                  font-medium
+                  text-primary
+                "
+              >
+                {pet.species}
+              </span>
+            </div>
+            <div className="mt-5 flex items-center gap-4">
+              <PetAvatar pet={pet} size="md" />
+              <div className="min-w-0">
+                <p className="text-lg font-semibold tracking-tight text-text-primary">
+                  {pet.name}
+                </p>
+                <p className="mt-0.5 text-sm text-text-secondary">
+                  {pet.breed}
+                </p>
+              </div>
+            </div>
+          </Card>
+          {/* Owner */}
+          <Card>
+            <h2 className="text-lg font-semibold text-text-primary">Owner</h2>
+            <div className="mt-5 flex items-center gap-4">
+              <div
+                className="
+                  flex
+                  h-12
+                  w-12
+                  shrink-0
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-primary/10
+                  text-primary
+                "
+              >
+                <UserRound size={20} aria-hidden="true" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-lg font-semibold tracking-tight text-text-primary">
+                  {owner.name}
+                </p>
+                <p className="mt-0.5 truncate text-sm text-text-secondary">
+                  {owner.email}
+                </p>
+              </div>
+            </div>
+          </Card>
         </div>
-      </Card>
-
-      <Card>
-        <p className="text-xs font-medium text-text-secondary">Owner</p>
-
-        <div className="mt-4 flex items-center gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center text-text-secondary">
-            <UserRound size={18} />
-          </div>
-
-          <p className="font-medium text-text-primary">{owner.name}</p>
-        </div>
-      </Card>
-    </div>
+      </div>
+    </section>
   );
 }
 
