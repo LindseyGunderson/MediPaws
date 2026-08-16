@@ -6,12 +6,14 @@ function PetAvatar({ pet, size = "md" }) {
   const PetIcon = species === "dog" ? Dog : species === "cat" ? Cat : PawPrint;
 
   const sizes = {
+    xs: "h-6 w-6",
     sm: "h-8 w-8",
-    md: "h-10 w-10",
-    lg: "h-12 w-12",
+    md: "h-12 w-12",
+    lg: "h-16 w-16",
   };
 
   const iconSizes = {
+    xs: 12,
     sm: 16,
     md: 18,
     lg: 20,

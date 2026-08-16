@@ -19,11 +19,16 @@ function AppointmentItem({ appointment, isLast }) {
         transition-colors
         duration-150
         hover:bg-surface-muted
+        focus:outline-none
+        focus-visible:bg-surface-muted
+        focus-visible:ring-2
+        focus-visible:ring-inset
+        focus-visible:ring-primary/30
         ${!isLast ? "border-b border-border/70" : ""}
       `}
     >
       {/* Time */}
-      <div className="w-18 shrink-0">
+      <div className="w-20 shrink-0">
         <p className="text-base font-semibold tracking-tight text-text-primary">
           {appointment.time}
         </p>

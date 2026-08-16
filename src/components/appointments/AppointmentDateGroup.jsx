@@ -1,17 +1,13 @@
 import AppointmentItem from "./AppointmentItem";
+import Card from "../ui/Card";
+import { formatDate } from "../../utils/dates";
 
 function AppointmentDateGroup({ date, appointments }) {
-  const formattedDate = new Date(date).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-
   return (
-    <section className="space-y-5">
+    <section className="space-y-4">
       <div className="flex items-baseline justify-between">
-        <h2 className="text-lg font-semibold text-text-primary">
-          {formattedDate}
+        <h2 className="text-lg font-semibold tracking-tight text-text-primary">
+          {formatDate(date)}
         </h2>
 
         <span className="text-sm text-text-secondary">
@@ -20,11 +16,15 @@ function AppointmentDateGroup({ date, appointments }) {
         </span>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {appointments.map((appointment) => (
-          <AppointmentItem key={appointment.id} appointment={appointment} />
+      <Card className="overflow-hidden p-0">
+        {appointments.map((appointment, index) => (
+          <AppointmentItem
+            key={appointment.id}
+            appointment={appointment}
+            isLast={index === appointments.length - 1}
+          />
         ))}
-      </div>
+      </Card>
     </section>
   );
 }

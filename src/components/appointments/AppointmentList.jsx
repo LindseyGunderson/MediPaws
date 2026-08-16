@@ -2,6 +2,20 @@ import AppointmentDateGroup from "./AppointmentDateGroup";
 import Card from "../ui/Card";
 
 function AppointmentList({ appointments }) {
+  if (appointments.length === 0) {
+    return (
+      <Card className="flex min-h-40 items-center justify-center">
+        <div className="text-center">
+          <p className="font-medium text-text-primary">No appointments found</p>
+
+          <p className="mt-1 text-sm text-text-secondary">
+            Try adjusting your search or status filter.
+          </p>
+        </div>
+      </Card>
+    );
+  }
+
   const groupedAppointments = appointments.reduce((groups, appointment) => {
     const date = appointment.date;
 
@@ -18,21 +32,8 @@ function AppointmentList({ appointments }) {
     ([dateA], [dateB]) => new Date(dateA) - new Date(dateB),
   );
 
- if (appointments.length === 0) {
-   return (
-     <Card className="text-center p-6">
-       <p className="font-medium text-text-primary">No appointments found</p>
-
-       <p className="mt-1 text-sm text-text-secondary">
-         Try adjusting your search or status filter.
-       </p>
-     </Card>
-   );
- }
-
-
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {sortedGroups.map(([date, appointments]) => (
         <AppointmentDateGroup
           key={date}
