@@ -3,27 +3,27 @@ import { useState } from "react";
 import AppointmentFilters from "../../components/appointments/AppointmentFilter";
 import AppointmentList from "../../components/appointments/AppointmentList";
 
-import { appointments } from "../../data/appointments";
+import { getAppointmentsWithDetails } from "../../helpers/appointments";
 
 function Appointments() {
   const [search, setSearch] = useState("");
-
   const [status, setStatus] = useState("all");
 
-const filteredAppointments = appointments.filter((appointment) => {
-  const searchValue = search.trim().toLowerCase();
+  const appointments = getAppointmentsWithDetails();
 
-  const petName = appointment.pet?.name?.toLowerCase() ?? "";
+  const filteredAppointments = appointments.filter((appointment) => {
+    const searchValue = search.trim().toLowerCase();
 
-  const ownerName = appointment.owner?.name?.toLowerCase() ?? "";
+    const petName = appointment.pet?.name?.toLowerCase() ?? "";
+    const ownerName = appointment.owner?.name?.toLowerCase() ?? "";
 
-  const matchesSearch =
-    petName.includes(searchValue) || ownerName.includes(searchValue);
+    const matchesSearch =
+      petName.includes(searchValue) || ownerName.includes(searchValue);
 
-  const matchesStatus = status === "all" || appointment.status === status;
+    const matchesStatus = status === "all" || appointment.status === status;
 
-  return matchesSearch && matchesStatus;
-});
+    return matchesSearch && matchesStatus;
+  });
 
   return (
     <div className="space-y-10">

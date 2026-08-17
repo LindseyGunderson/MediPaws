@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 
-import { appointments } from "../../data/appointments";
-import { getAppointmentById } from "../../utils/appointments";
+import { getAppointmentsWithDetails } from "../../helpers/appointments";
 
 import AppointmentHeader from "../../components/appointments/AppointmentHeader";
 import AppointmentInfo from "../../components/appointments/AppointmentInfo";
@@ -10,7 +9,11 @@ import AppointmentPatientInfo from "../../components/appointments/AppointmentPat
 function AppointmentDetails() {
   const { id } = useParams();
 
-  const appointment = getAppointmentById(appointments, id);
+  const appointments = getAppointmentsWithDetails();
+
+  const appointment = appointments.find(
+    (appointment) => Number(appointment.id) === Number(id),
+  );
 
   if (!appointment) {
     return (
@@ -31,11 +34,8 @@ function AppointmentDetails() {
       <AppointmentHeader appointment={appointment} />
 
       <div className="space-y-6">
-        <div className="flex flex-col gap-4">
-          <AppointmentInfo appointment={appointment} />
-          <AppointmentPatientInfo appointment={appointment} />
-        </div>
-        <div></div>
+        <AppointmentInfo appointment={appointment} />
+        <AppointmentPatientInfo appointment={appointment} />
       </div>
     </div>
   );

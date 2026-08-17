@@ -1,9 +1,10 @@
-import { appointments } from "../data/appointments";
 import {
   CalendarDays,
   Clock3,
   AlertCircle,
 } from "lucide-react";
+
+import { getAppointmentsWithDetails } from "./appointments";
 
 function getToday() {
   const today = new Date();
@@ -16,16 +17,21 @@ function getToday() {
 }
 
 function getAppointmentDateTime(appointment) {
-  return new Date(`${appointment.date} ${appointment.time}`);
+  return new Date(`${appointment.date}T${appointment.time}`);
 }
 
 export function getDashboardData() {
+  const appointments = getAppointmentsWithDetails();
+
   const today = getToday();
   const now = new Date();
 
-  const todaysAppointments = appointments.filter(
-    (appointment) => appointment.date === today
-  );
+  const todaysAppointments = appointments
+    .filter((appointment) => appointment.date === today)
+    .sort(
+      (a, b) =>
+        getAppointmentDateTime(a) - getAppointmentDateTime(b)
+    );
 
   const completed = todaysAppointments.filter(
     (appointment) => appointment.status === "completed"
@@ -37,43 +43,41 @@ export function getDashboardData() {
       appointment.status !== "cancelled"
   ).length;
 
-const soonAppointments = todaysAppointments.filter((appointment) => {
-  const appointmentTime = getAppointmentDateTime(appointment);
+  const soonAppointments = todaysAppointments.filter((appointment) => {
+    const appointmentTime = getAppointmentDateTime(appointment);
 
-  const twoHoursFromNow = new Date(
-    now.getTime() + 2 * 60 * 60 * 1000
-  );
+    const twoHoursFromNow = new Date(
+      now.getTime() + 2 * 60 * 60 * 1000
+    );
 
-  return (
-    appointment.status === "scheduled" &&
-    appointmentTime >= now &&
-    appointmentTime <= twoHoursFromNow
-  );
-});
+    return (
+      appointment.status === "scheduled" &&
+      appointmentTime >= now &&
+      appointmentTime <= twoHoursFromNow
+    );
+  });
 
-const nextAppointment = [...soonAppointments].sort(
-  (a, b) =>
-    getAppointmentDateTime(a) - getAppointmentDateTime(b)
-)[0];
+  const nextAppointment = [...soonAppointments].sort(
+    (a, b) =>
+      getAppointmentDateTime(a) - getAppointmentDateTime(b)
+  )[0];
 
-const nextAppointmentTime = nextAppointment
-  ? nextAppointment.time
-  : "None";
+  const nextAppointmentTime = nextAppointment
+    ? nextAppointment.time
+    : "None";
 
-    const needsAttention = appointments.filter((appointment) => {
-        const appointmentDate = new Date(`${appointment.date}T00:00:00`);
-        const today = new Date();
+  const needsAttention = appointments.filter((appointment) => {
+    const appointmentTime = getAppointmentDateTime(appointment);
 
-        today.setHours(0, 0, 0, 0);
-
-        return (
-            appointmentDate < today &&
-            appointment.status === "scheduled"
-        );
-    }).length;
+    return (
+      appointment.status === "scheduled" &&
+      appointmentTime < now
+    );
+  }).length;
 
   return {
     todaysAppointments,
+
     overview: [
       {
         id: "today",
@@ -92,6 +96,7 @@ const nextAppointmentTime = nextAppointment
           },
         ],
       },
+
       {
         id: "soon",
         label: "Soon",
@@ -105,6 +110,7 @@ const nextAppointmentTime = nextAppointment
           },
         ],
       },
+
       {
         id: "attention",
         label: "Needs Attention",

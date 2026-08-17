@@ -1,51 +1,51 @@
 import { appointments } from "../data/appointments";
-import { getPetById, getOwnerById, getPetsByOwner } from "./patients";
+import {
+  getPetById,
+  getOwnerById,
+  getPetsByOwner,
+} from "./patients";
 
+function getAppointmentDateTime(appointment) {
+  return new Date(`${appointment.date} ${appointment.time}`);
+}
 
 export function getAppointmentsWithDetails() {
   return appointments.map((appointment) => {
-
-    const pet = getPetById(
-      appointment.petId
-    );
-
-    const owner = getOwnerById(
-      appointment.ownerId
-    );
-
+    const pet = getPetById(appointment.petId);
+    const owner = getOwnerById(appointment.ownerId);
 
     return {
       ...appointment,
       pet,
       owner,
     };
-
   });
 }
 
 export function getAppointmentsByOwner(ownerId) {
-  const ownerPets = getPetsByOwner(ownerId);
+  const appointmentsWithDetails = getAppointmentsWithDetails();
 
-  return appointments.filter((appointment) =>
-    ownerPets.some(
-      (pet) => Number(pet.id) === Number(appointment.petId)
-    )
+  return appointmentsWithDetails.filter(
+    (appointment) => Number(appointment.ownerId) === Number(ownerId)
   );
 }
 
 export function getAppointmentDisplayStatus(appointment) {
-
-    if (!appointment) {
+  if (!appointment) {
     console.error("AppointmentStatusBadge received no appointment");
+
     return {
       label: "Unknown",
       tone: "cancelled",
     };
   }
 
+  const now = new Date();
+  const appointmentDateTime = getAppointmentDateTime(appointment);
+
   const isOverdue =
     appointment.status === "scheduled" &&
-    new Date(appointment.date) < new Date();
+    appointmentDateTime < now;
 
   if (isOverdue) {
     return {
@@ -59,27 +59,32 @@ export function getAppointmentDisplayStatus(appointment) {
       label: "Scheduled",
       tone: "scheduled",
     },
+
     checkedIn: {
       label: "Checked In",
       tone: "checkedIn",
     },
+
     inProgress: {
       label: "In Progress",
-      tone: "inProgress"
+      tone: "inProgress",
     },
+
     completed: {
       label: "Completed",
       tone: "completed",
     },
+
     cancelled: {
       label: "Cancelled",
       tone: "cancelled",
     },
-    overdue: {
-      label: "Needs Attention",
-      tone: "overdue"
-    },
   };
 
-  return statuses[appointment.status];
+  return (
+    statuses[appointment.status] ?? {
+      label: "Unknown",
+      tone: "cancelled",
+    }
+  );
 }
