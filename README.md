@@ -1,3 +1,5 @@
+<img width="1503" height="990" alt="image" src="https://github.com/user-attachments/assets/ec7f25ae-4df3-42d0-9547-e6ed0f4fdc57" />
+
 # MediPaws
 
 MediPaws is a veterinary clinic operations dashboard designed to help clinic staff manage appointments, patients, and pet owners from one place.
