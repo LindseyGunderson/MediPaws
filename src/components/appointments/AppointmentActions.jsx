@@ -1,7 +1,7 @@
 import { Check, Pencil, X } from "lucide-react";
 import { useAppointments } from "../../context/AppointmentContext";
 
-function AppointmentActions({ appointment }) {
+function AppointmentActions({ appointment, onEdit }) {
   const { checkInAppointment, completeAppointment, cancelAppointment } =
     useAppointments();
 
@@ -52,6 +52,7 @@ function AppointmentActions({ appointment }) {
         {/* Secondary action */}
         <button
           type="button"
+          onClick={onEdit}
           className="
             inline-flex
             flex-1

@@ -34,10 +34,24 @@ export function AppointmentProvider({ children }) {
     updateAppointmentStatus(id, "cancelled");
   }
 
+  function updateAppointment(id, updates) {
+    setAppointments((currentAppointments) =>
+      currentAppointments.map((appointment) =>
+        appointment.id === id
+          ? {
+              ...appointment,
+              ...updates,
+            }
+          : appointment,
+      ),
+    );
+  }
+
   return (
     <AppointmentContext.Provider
       value={{
         appointments,
+        updateAppointment,
         updateAppointmentStatus,
         checkInAppointment,
         completeAppointment,

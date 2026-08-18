@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import AppointmentStatusBadge from "./AppointmentStatusBadge";
 import AppointmentActions from "./AppointmentActions";
 
-function AppointmentHeader({ appointment }) {
+function AppointmentHeader({ appointment, onEdit }) {
   return (
     <header className="space-y-7">
       <Link
@@ -56,7 +56,7 @@ function AppointmentHeader({ appointment }) {
           </div>
         </div>
       </div>
-        <AppointmentActions appointment={appointment} />
+      <AppointmentActions appointment={appointment} onEdit={onEdit} />
     </header>
   );
 }
