@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 
-import { getAppointmentsWithDetails } from "../../helpers/appointments";
+import { useAppointments } from "../../context/AppointmentContext";
 
 import AppointmentHeader from "../../components/appointments/AppointmentHeader";
 import AppointmentInfo from "../../components/appointments/AppointmentInfo";
@@ -9,8 +9,8 @@ import AppointmentPatientInfo from "../../components/appointments/AppointmentPat
 function AppointmentDetails() {
   const { id } = useParams();
 
-  const appointments = getAppointmentsWithDetails();
-
+  const { appointments } = useAppointments();
+  
   const appointment = appointments.find(
     (appointment) => Number(appointment.id) === Number(id),
   );

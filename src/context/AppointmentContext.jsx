@@ -5,8 +5,9 @@ import { getAppointmentsWithDetails } from "../helpers/appointments";
 const AppointmentContext = createContext();
 
 export function AppointmentProvider({ children }) {
-
-const [appointments, setAppointments] = useState(getAppointmentsWithDetails());
+  const [appointments, setAppointments] = useState(
+    getAppointmentsWithDetails(),
+  );
 
   function updateAppointmentStatus(id, status) {
     setAppointments((currentAppointments) =>
@@ -21,11 +22,26 @@ const [appointments, setAppointments] = useState(getAppointmentsWithDetails());
     );
   }
 
+  function checkInAppointment(id) {
+    updateAppointmentStatus(id, "checkedIn");
+  }
+
+  function completeAppointment(id) {
+    updateAppointmentStatus(id, "completed");
+  }
+
+  function cancelAppointment(id) {
+    updateAppointmentStatus(id, "cancelled");
+  }
+
   return (
     <AppointmentContext.Provider
       value={{
         appointments,
         updateAppointmentStatus,
+        checkInAppointment,
+        completeAppointment,
+        cancelAppointment,
       }}
     >
       {children}

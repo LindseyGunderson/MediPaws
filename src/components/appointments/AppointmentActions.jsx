@@ -2,23 +2,26 @@ import { Check, Pencil, X } from "lucide-react";
 import { useAppointments } from "../../context/AppointmentContext";
 
 function AppointmentActions({ appointment }) {
-  const { updateAppointmentStatus } = useAppointments();
+  const { checkInAppointment, completeAppointment, cancelAppointment } =
+    useAppointments();
 
-  const handleCheckIn = () => {
-    updateAppointmentStatus(appointment.id, "checkedIn");
-  };
+  function handleCancel() {
+    const confirmed = window.confirm(
+      `Are you sure you want to cancel ${appointment.pet.name}'s appointment?`,
+    );
 
-  const handleComplete = () => {
-    updateAppointmentStatus(appointment.id, "completed");
-  };
+    if (confirmed) {
+      cancelAppointment(appointment.id);
+    }
+  }
 
   if (appointment.status === "scheduled") {
     return (
       <div className="flex w-full flex-wrap items-center justify-center gap-2 sm:w-auto sm:justify-end">
-
+        {/* Primary action */}
         <button
           type="button"
-          onClick={handleCheckIn}
+          onClick={() => checkInAppointment(appointment.id)}
           className="
             inline-flex
             flex-1
@@ -46,6 +49,7 @@ function AppointmentActions({ appointment }) {
           Check In
         </button>
 
+        {/* Secondary action */}
         <button
           type="button"
           className="
@@ -75,8 +79,10 @@ function AppointmentActions({ appointment }) {
           Edit
         </button>
 
+        {/* Destructive action */}
         <button
           type="button"
+          onClick={handleCancel}
           className="
             inline-flex
             flex-1
@@ -110,13 +116,15 @@ function AppointmentActions({ appointment }) {
 
   if (appointment.status === "checkedIn") {
     return (
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex w-full justify-center sm:w-auto sm:justify-end">
         <button
           type="button"
-          onClick={handleComplete}
+          onClick={() => completeAppointment(appointment.id)}
           className="
             inline-flex
+            w-full
             items-center
+            justify-center
             gap-2
             rounded-lg
             bg-primary
@@ -132,6 +140,7 @@ function AppointmentActions({ appointment }) {
             hover:shadow-md
             active:scale-[0.98]
             cursor-pointer
+            sm:w-auto
           "
         >
           <Check size={16} aria-hidden="true" />

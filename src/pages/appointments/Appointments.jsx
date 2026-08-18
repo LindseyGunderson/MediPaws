@@ -3,13 +3,13 @@ import { useState } from "react";
 import AppointmentFilters from "../../components/appointments/AppointmentFilter";
 import AppointmentList from "../../components/appointments/AppointmentList";
 
-import { getAppointmentsWithDetails } from "../../helpers/appointments";
+import { useAppointments } from "../../context/AppointmentContext";
 
 function Appointments() {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("all");
 
-  const appointments = getAppointmentsWithDetails();
+  const { appointments } = useAppointments();
 
   const filteredAppointments = appointments.filter((appointment) => {
     const searchValue = search.trim().toLowerCase();
