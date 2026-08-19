@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import {
   CalendarDays,
   CheckCircle2,
@@ -10,6 +9,7 @@ import {
   PawPrint,
   Phone,
 } from "lucide-react";
+
 import { useAppointments } from "../../context/AppointmentContext";
 
 import Card from "../../components/ui/Card";
@@ -19,42 +19,20 @@ import { pets } from "../../data/pets";
 import { owners } from "../../data/owners";
 
 import { formatDate, formatTimeForDisplay } from "../../utils/dates";
-
+import { validateAppointment } from "../../utils/validation";
 
 function CreateAppointment() {
   const navigate = useNavigate();
 
   const { createAppointment } = useAppointments();
 
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    if (
-      !selectedOwnerId ||
-      !selectedPetId ||
-      !selectedType ||
-      !selectedDate ||
-      !selectedTime
-    ) {
-      return;
-    }
-
-    createAppointment({
-      ownerId: selectedOwnerId,
-      petId: selectedPetId,
-      type: selectedType,
-      date: selectedDate,
-      time: selectedTime,
-    });
-
-    navigate("/appointments");
-  }
-
   const [selectedOwnerId, setSelectedOwnerId] = useState("");
   const [selectedPetId, setSelectedPetId] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+
+  const [errors, setErrors] = useState({});
 
   const selectedPet = pets.find(
     (pet) => Number(pet.id) === Number(selectedPetId),
@@ -73,7 +51,96 @@ function CreateAppointment() {
 
     setSelectedOwnerId(ownerId);
     setSelectedPetId("");
+
+    setErrors((currentErrors) => ({
+      ...currentErrors,
+      ownerId: "",
+      petId: "",
+    }));
   }
+
+    function handlePetChange(event) {
+      setSelectedPetId(event.target.value);
+
+      setErrors((currentErrors) => ({
+        ...currentErrors,
+        petId: "",
+      }));
+    }
+
+    function handleTypeChange(event) {
+      setSelectedType(event.target.value);
+
+      setErrors((currentErrors) => ({
+        ...currentErrors,
+        type: "",
+      }));
+    }
+
+    function handleDateChange(event) {
+      setSelectedDate(event.target.value);
+
+      setErrors((currentErrors) => ({
+        ...currentErrors,
+        date: "",
+      }));
+    }
+
+    function handleTimeChange(event) {
+      setSelectedTime(event.target.value);
+
+      setErrors((currentErrors) => ({
+        ...currentErrors,
+        time: "",
+      }));
+    }
+
+function handleSubmit(event) {
+  event.preventDefault();
+
+  const validationErrors = validateAppointment({
+    ownerId: selectedOwnerId,
+    petId: selectedPetId,
+    type: selectedType,
+    date: selectedDate,
+    time: selectedTime,
+  });
+
+  setErrors(validationErrors);
+
+  
+  const fieldIds = {
+    ownerId: "owner",
+    petId: "pet",
+    type: "type",
+    date: "date",
+    time: "time",
+  };
+
+  if (Object.keys(validationErrors).length > 0) {
+    const firstErrorField = Object.keys(validationErrors)[0];
+    const element = document.getElementById(fieldIds[firstErrorField]);
+
+    element?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+
+    element?.focus();
+
+    return;
+  }
+
+  createAppointment({
+    ownerId: selectedOwnerId,
+    petId: selectedPetId,
+    type: selectedType,
+    date: selectedDate,
+    time: selectedTime,
+  });
+
+  navigate("/appointments");
+}
 
   return (
     <div className="mx-auto max-w-4xl space-y-10">
@@ -138,7 +205,7 @@ function CreateAppointment() {
                 name="owner"
                 value={selectedOwnerId}
                 onChange={handleOwnerChange}
-                className="
+                className={`
                   w-full
                   rounded-md
                   border
@@ -153,7 +220,12 @@ function CreateAppointment() {
                   focus:border-primary
                   focus:ring-2
                   focus:ring-primary/10
-                "
+                  ${
+                    errors.ownerId
+                      ? "border-danger focus:border-danger focus:ring-danger/10"
+                      : "border-border focus:border-primary focus:ring-primary/10"
+                  }
+                `}
               >
                 <option value="" disabled>
                   Select an owner
@@ -165,6 +237,10 @@ function CreateAppointment() {
                   </option>
                 ))}
               </select>
+
+              {errors.ownerId && (
+                <p className="text-xs text-danger">{errors.ownerId}</p>
+              )}
 
               {selectedOwner && (
                 <div className="flex flex-1 items-center rounded-lg bg-surface-muted p-4">
@@ -205,9 +281,9 @@ function CreateAppointment() {
                 id="pet"
                 name="pet"
                 value={selectedPetId}
-                onChange={(event) => setSelectedPetId(event.target.value)}
+                onChange={handlePetChange}
                 disabled={!selectedOwnerId}
-                className="
+                className={`
                   w-full
                   rounded-md
                   border
@@ -225,7 +301,12 @@ function CreateAppointment() {
                   focus:border-primary
                   focus:ring-2
                   focus:ring-primary/10
-                "
+                  ${
+                    errors.petId
+                      ? "border-danger focus:border-danger focus:ring-danger/10"
+                      : "border-border focus:border-primary focus:ring-primary/10"
+                  }
+                `}
               >
                 <option value="" disabled>
                   {selectedOwnerId ? "Select a pet" : "Select an owner first"}
@@ -237,6 +318,10 @@ function CreateAppointment() {
                   </option>
                 ))}
               </select>
+
+              {errors.petId && (
+                <p className="text-xs text-danger">{errors.petId}</p>
+              )}
 
               {selectedPet && (
                 <div className="flex flex-1 items-center rounded-lg bg-surface-muted p-4">
@@ -296,8 +381,8 @@ function CreateAppointment() {
                 id="type"
                 name="type"
                 value={selectedType}
-                onChange={(event) => setSelectedType(event.target.value)}
-                className="
+                onChange={handleTypeChange}
+                className={`
                   w-full
                   rounded-md
                   border
@@ -312,7 +397,12 @@ function CreateAppointment() {
                   focus:border-primary
                   focus:ring-2
                   focus:ring-primary/10
-                "
+                  ${
+                    errors.type
+                      ? "border-danger focus:border-danger focus:ring-danger/10"
+                      : "border-border focus:border-primary focus:ring-primary/10"
+                  }
+                `}
               >
                 <option value="" disabled>
                   Select appointment type
@@ -326,6 +416,10 @@ function CreateAppointment() {
                 <option value="Surgery">Surgery</option>
               </select>
             </div>
+
+            {errors.type && (
+              <p className="text-xs text-danger">{errors.type}</p>
+            )}
 
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
@@ -355,8 +449,8 @@ function CreateAppointment() {
                     name="date"
                     type="date"
                     value={selectedDate}
-                    onChange={(event) => setSelectedDate(event.target.value)}
-                    className="
+                    onChange={handleOwnerChange}
+                    className={`
                       w-full
                       rounded-md
                       border
@@ -372,13 +466,21 @@ function CreateAppointment() {
                       focus:border-primary
                       focus:ring-2
                       focus:ring-primary/10
-                    "
+                      ${
+                        errors.date
+                          ? "border-danger focus:border-danger focus:ring-danger/10"
+                          : "border-border focus:border-primary focus:ring-primary/10"
+                      }
+                    `}
                   />
                 </div>
 
                 <p className="text-xs text-text-secondary">
                   Select the appointment date.
                 </p>
+                {errors.date && (
+                  <p className="text-xs text-danger">{errors.date}</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -408,8 +510,8 @@ function CreateAppointment() {
                     name="time"
                     type="time"
                     value={selectedTime}
-                    onChange={(event) => setSelectedTime(event.target.value)}
-                    className="
+                    onChange={handleTimeChange}
+                    className={`
                       w-full
                       rounded-md
                       border
@@ -425,13 +527,21 @@ function CreateAppointment() {
                       focus:border-primary
                       focus:ring-2
                       focus:ring-primary/10
-                    "
+                      ${
+                        errors.time
+                            ? "border-danger focus:border-danger focus:ring-danger/10"
+                            : "border-border focus:border-primary focus:ring-primary/10"
+                        }
+                    `}
                   />
                 </div>
 
                 <p className="text-xs text-text-secondary">
                   Select the appointment time.
                 </p>
+                {errors.time && (
+                  <p className="text-xs text-danger">{errors.time}</p>
+                )}
               </div>
             </div>
           </div>
