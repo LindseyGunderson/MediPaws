@@ -2,6 +2,7 @@ import { ChevronLeft, Clock3 } from "lucide-react";
 import { Link } from "react-router-dom";
 import AppointmentStatusBadge from "./AppointmentStatusBadge";
 import AppointmentActions from "./AppointmentActions";
+import { formatTimeForDisplay } from "../../utils/dates";
 
 function AppointmentHeader({ appointment, onEdit }) {
   return (
@@ -49,7 +50,7 @@ function AppointmentHeader({ appointment, onEdit }) {
               <div className="flex items-center justify-end gap-1.5">
                 <Clock3 size={15} className="text-primary" aria-hidden="true" />
                 <p className="text-lg font-semibold tracking-tight text-text-primary">
-                  {appointment.time}
+                  {formatTimeForDisplay(appointment.time)}
                 </p>
               </div>
             </div>

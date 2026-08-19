@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import {
   CalendarDays,
   CheckCircle2,
@@ -9,6 +10,7 @@ import {
   PawPrint,
   Phone,
 } from "lucide-react";
+import { useAppointments } from "../../context/AppointmentContext";
 
 import Card from "../../components/ui/Card";
 import PetAvatar from "../../components/pets/PetAvatar";
@@ -18,7 +20,36 @@ import { owners } from "../../data/owners";
 
 import { formatDate, formatTimeForDisplay } from "../../utils/dates";
 
+
 function CreateAppointment() {
+  const navigate = useNavigate();
+
+  const { createAppointment } = useAppointments();
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    if (
+      !selectedOwnerId ||
+      !selectedPetId ||
+      !selectedType ||
+      !selectedDate ||
+      !selectedTime
+    ) {
+      return;
+    }
+
+    createAppointment({
+      ownerId: selectedOwnerId,
+      petId: selectedPetId,
+      type: selectedType,
+      date: selectedDate,
+      time: selectedTime,
+    });
+
+    navigate("/appointments");
+  }
+
   const [selectedOwnerId, setSelectedOwnerId] = useState("");
   const [selectedPetId, setSelectedPetId] = useState("");
   const [selectedType, setSelectedType] = useState("");
@@ -46,7 +77,6 @@ function CreateAppointment() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-10">
-        
       <header className="space-y-4">
         <Link
           to="/appointments"
@@ -76,7 +106,7 @@ function CreateAppointment() {
         </div>
       </header>
 
-      <form className="space-y-6">
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <Card>
           <div className="flex items-start gap-3">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
@@ -254,7 +284,6 @@ function CreateAppointment() {
           </div>
 
           <div className="mt-6 space-y-5">
-
             <div className="space-y-2">
               <label
                 htmlFor="type"
@@ -435,7 +464,6 @@ function CreateAppointment() {
                 sm:p-7
               "
             >
-                
               <div className="mb-7 flex items-start gap-3">
                 <div
                   className="
@@ -465,9 +493,7 @@ function CreateAppointment() {
               </div>
 
               <div className="rounded-xl border border-border/70 bg-surface p-5 sm:p-6">
-
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                
                   {selectedOwner && (
                     <div
                       className="
@@ -599,7 +625,7 @@ function CreateAppointment() {
             </section>
           </div>
         )}
-        
+
         <div className="flex flex-col-reverse gap-3 border-t border-border pt-6 sm:flex-row sm:justify-end">
           <Link
             to="/appointments"
@@ -636,6 +662,7 @@ function CreateAppointment() {
               text-sm
               font-medium
               text-white
+              cursor-pointer
               shadow-sm
               transition-all
               hover:bg-primary-dark

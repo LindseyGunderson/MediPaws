@@ -9,6 +9,10 @@ export function formatDate(date) {
 export function convertToTimeInput(time) {
   if (!time) return "";
 
+  if (!time.includes("AM") && !time.includes("PM")) {
+    return time;
+  }
+
   const [timePart, period] = time.split(" ");
   let [hours, minutes] = timePart.split(":").map(Number);
 
@@ -29,10 +33,19 @@ export function convertToTimeInput(time) {
 export function formatTimeForDisplay(time) {
   if (!time) return "";
 
-  const [hours, minutes] = time.split(":").map(Number);
+  if (time.includes("AM") || time.includes("PM")) {
+    return time;
+  }
 
-  const period = hours >= 12 ? "PM" : "AM";
-  const displayHours = hours % 12 || 12;
+  const [hours, minutes] = time.split(":");
+  const hour = Number(hours);
 
-  return `${displayHours}:${String(minutes).padStart(2, "0")} ${period}`;
+  if (Number.isNaN(hour) || !minutes) {
+    return time;
+  }
+
+  const period = hour >= 12 ? "PM" : "AM";
+  const displayHour = hour % 12 || 12;
+
+  return `${displayHour}:${minutes} ${period}`;
 }

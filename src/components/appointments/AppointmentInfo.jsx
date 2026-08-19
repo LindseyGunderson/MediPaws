@@ -1,5 +1,5 @@
 import { CalendarDays, Clock3, Stethoscope } from "lucide-react";
-import { formatDate } from "../../utils/dates";
+import { formatDate, formatTimeForDisplay } from "../../utils/dates";
 import Card from "../ui/Card";
 
 function AppointmentInfo({ appointment }) {
@@ -33,7 +33,7 @@ function AppointmentInfo({ appointment }) {
             </div>
 
             <p className="mt-3 text-xl font-semibold tracking-tight text-text-primary">
-              {appointment.time}
+              {formatTimeForDisplay(appointment.time)}
             </p>
           </div>
         </div>

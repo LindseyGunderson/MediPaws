@@ -1,4 +1,7 @@
 import { appointments } from "../data/appointments";
+import { owners } from "../data/owners";
+import { pets } from "../data/pets";
+
 import {
   getPetById,
   getOwnerById,
@@ -20,6 +23,14 @@ export function getAppointmentsWithDetails() {
       owner,
     };
   });
+}
+
+export function getAppointmentWithDetails(appointment) {
+  return {
+    ...appointment,
+    pet: pets.find((pet) => pet.id === appointment.petId),
+    owner: owners.find((owner) => owner.id === appointment.ownerId),
+  };
 }
 
 export function getAppointmentsByOwner(ownerId) {

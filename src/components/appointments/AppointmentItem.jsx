@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import PetAvatar from "../pets/PetAvatar";
+import { formatTimeForDisplay } from '../../utils/dates';
 
 import AppointmentStatusBadge from "./AppointmentStatusBadge";
 
@@ -30,7 +31,7 @@ function AppointmentItem({ appointment, isLast }) {
       {/* Time */}
       <div className="w-20 shrink-0">
         <p className="text-base font-semibold tracking-tight text-text-primary">
-          {appointment.time}
+          {formatTimeForDisplay(appointment.time)}
         </p>
       </div>
 

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Plus } from "lucide-react";
 
 import AppointmentFilters from "../../components/appointments/AppointmentFilter";
 import AppointmentList from "../../components/appointments/AppointmentList";
@@ -27,16 +29,54 @@ function Appointments() {
 
   return (
     <div className="space-y-10">
-      <section className="space-y-2">
-        <h1 className="text-3xl font-semibold tracking-tight text-text-primary">
-          Appointments
-        </h1>
+      {/* Header */}
+      <section
+        className="
+          flex
+          flex-col
+          gap-4
+          sm:flex-row
+          sm:items-end
+          sm:justify-between
+        "
+      >
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-text-primary">
+            Appointments
+          </h1>
 
-        <p className="text-sm leading-6 text-text-secondary">
-          View and manage veterinary appointments.
-        </p>
+          <p className="mt-2 text-sm leading-6 text-text-secondary">
+            View and manage veterinary appointments.
+          </p>
+        </div>
+
+        <Link
+          to="/appointments/new"
+          className="
+            inline-flex
+            items-center
+            justify-center
+            gap-2
+            rounded-md
+            bg-primary
+            px-4
+            py-2.5
+            text-sm
+            font-medium
+            text-white
+            shadow-sm
+            transition-all
+            hover:bg-primary-dark
+            hover:shadow-md
+            active:scale-[0.98]
+          "
+        >
+          <Plus size={16} aria-hidden="true" />
+          New Appointment
+        </Link>
       </section>
 
+      {/* Filters */}
       <AppointmentFilters
         search={search}
         setSearch={setSearch}
@@ -44,6 +84,7 @@ function Appointments() {
         setStatus={setStatus}
       />
 
+      {/* Appointments */}
       <AppointmentList appointments={filteredAppointments} />
     </div>
   );

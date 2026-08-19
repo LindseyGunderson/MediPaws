@@ -15,7 +15,7 @@ function AppointmentEditDrawer({ appointment, isOpen, onClose }) {
   useEffect(() => {
     if (appointment) {
       setDate(appointment.date);
-      setTime(convertToTimeInput(appointment.time));
+      setTime(appointment.time);
       setType(appointment.type);
     }
   }, [appointment]);

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-import { getAppointmentsWithDetails } from "../helpers/appointments";
+import { getAppointmentsWithDetails, getAppointmentWithDetails } from "../helpers/appointments";
 
 const AppointmentContext = createContext();
 
@@ -47,6 +47,29 @@ export function AppointmentProvider({ children }) {
     );
   }
 
+function createAppointment({ petId, ownerId, date, time, type }) {
+  setAppointments((currentAppointments) => {
+    const nextId =
+      currentAppointments.length > 0
+        ? Math.max(
+            ...currentAppointments.map((appointment) => appointment.id),
+          ) + 1
+        : 1;
+
+    const newAppointment = {
+      id: nextId,
+      petId: Number(petId),
+      ownerId: Number(ownerId),
+      date,
+      time,
+      type,
+      status: "scheduled",
+    };
+
+    return [...currentAppointments, getAppointmentWithDetails(newAppointment)];
+  });
+}
+
   return (
     <AppointmentContext.Provider
       value={{
@@ -56,6 +79,7 @@ export function AppointmentProvider({ children }) {
         checkInAppointment,
         completeAppointment,
         cancelAppointment,
+        createAppointment,
       }}
     >
       {children}
