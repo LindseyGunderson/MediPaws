@@ -1,10 +1,7 @@
 import {
-  CalendarDays,
-  Clock3,
-  AlertCircle,
-} from "lucide-react";
-
-import { getAppointmentsWithDetails } from "./appointments";
+  getAppointmentsWithDetails,
+  getAppointmentDateTime,
+} from "./appointments";
 
 function getToday() {
   const today = new Date();
@@ -16,13 +13,8 @@ function getToday() {
   return `${year}-${month}-${day}`;
 }
 
-function getAppointmentDateTime(appointment) {
-  return new Date(`${appointment.date}T${appointment.time}`);
-}
-
 export function getDashboardData() {
   const appointments = getAppointmentsWithDetails();
-
   const today = getToday();
   const now = new Date();
 
@@ -33,99 +25,69 @@ export function getDashboardData() {
         getAppointmentDateTime(a) - getAppointmentDateTime(b)
     );
 
-  const completed = todaysAppointments.filter(
-    (appointment) => appointment.status === "completed"
-  ).length;
+  const inProgressAppointments = todaysAppointments.filter(
+    (appointment) => appointment.status === "inProgress"
+  );
 
-  const remaining = todaysAppointments.filter(
+  const followUpAppointments = appointments.filter(
     (appointment) =>
-      appointment.status !== "completed" &&
+      appointment.type === "Follow-up" &&
       appointment.status !== "cancelled"
-  ).length;
+  );
 
-  const soonAppointments = todaysAppointments.filter((appointment) => {
-    const appointmentTime = getAppointmentDateTime(appointment);
-
-    const twoHoursFromNow = new Date(
-      now.getTime() + 2 * 60 * 60 * 1000
-    );
+  const overdueAppointments = appointments.filter((appointment) => {
+    const appointmentDateTime = getAppointmentDateTime(appointment);
 
     return (
       appointment.status === "scheduled" &&
-      appointmentTime >= now &&
-      appointmentTime <= twoHoursFromNow
+      appointmentDateTime < now
     );
   });
 
-  const nextAppointment = [...soonAppointments].sort(
-    (a, b) =>
-      getAppointmentDateTime(a) - getAppointmentDateTime(b)
-  )[0];
+  const upcomingAppointments = appointments
+    .filter((appointment) => {
+      const appointmentDateTime = getAppointmentDateTime(appointment);
 
-  const nextAppointmentTime = nextAppointment
-    ? nextAppointment.time
-    : "None";
-
-  const needsAttention = appointments.filter((appointment) => {
-    const appointmentTime = getAppointmentDateTime(appointment);
-
-    return (
-      appointment.status === "scheduled" &&
-      appointmentTime < now
+      return (
+        appointmentDateTime > now &&
+        appointment.status === "scheduled"
+      );
+    })
+    .sort(
+      (a, b) =>
+        getAppointmentDateTime(a) - getAppointmentDateTime(b)
     );
-  }).length;
 
   return {
     todaysAppointments,
+    inProgressAppointments,
+    followUpAppointments,
+    overdueAppointments,
+    upcomingAppointments,
 
     overview: [
       {
         id: "today",
         label: "Today's Appointments",
         value: todaysAppointments.length,
-        icon: CalendarDays,
-        accent: "primary",
-        details: [
-          {
-            label: "Completed",
-            value: completed,
-          },
-          {
-            label: "Remaining",
-            value: remaining,
-          },
-        ],
+        link: "/appointments",
+        linkText: "View schedule",
       },
 
       {
-        id: "soon",
-        label: "Soon",
-        value: soonAppointments.length,
-        icon: Clock3,
-        accent: "warning",
-        details: [
-          {
-            label: "Next 2 hours",
-            value: nextAppointmentTime,
-          },
-        ],
+        id: "in-progress",
+        label: "In Progress",
+        value: inProgressAppointments.length,
+        link: "/appointments?status=inProgress",
+        linkText: "View appointments",
       },
 
       {
-        id: "attention",
-        label: "Needs Attention",
-        value: needsAttention,
-        icon: AlertCircle,
-        accent: needsAttention > 0 ? "error" : "primary",
-        details: [
-          {
-            label:
-              needsAttention > 0
-                ? "Overdue appointments"
-                : "No overdue appointments",
-            value: needsAttention,
-          },
-        ],
+        id: "follow-ups",
+        label: "Follow Ups",
+        value: followUpAppointments.length,
+        link: "/patients?filter=follow-ups",
+        linkText: "View patients",
       },
     ],
   };
