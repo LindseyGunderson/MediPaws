@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
-import PetAvatar from "../pets/PetAvatar";
-import { formatTimeForDisplay } from '../../utils/dates';
 
+import PetAvatar from "../pets/PetAvatar";
 import AppointmentStatusBadge from "./AppointmentStatusBadge";
+import { formatTimeForDisplay } from "../../utils/dates";
 
 function AppointmentItem({ appointment, isLast }) {
-
   return (
     <Link
       to={`/appointments/${appointment.id}`}
@@ -14,9 +13,9 @@ function AppointmentItem({ appointment, isLast }) {
         group
         flex
         items-center
-        gap-6
+        gap-5
         px-6
-        py-5
+        py-4
         transition-colors
         duration-150
         hover:bg-surface-muted
@@ -30,30 +29,27 @@ function AppointmentItem({ appointment, isLast }) {
     >
       {/* Time */}
       <div className="w-20 shrink-0">
-        <p className="text-base font-semibold tracking-tight text-text-primary">
+        <p className="text-sm font-semibold tracking-tight text-text-primary">
           {formatTimeForDisplay(appointment.time)}
         </p>
       </div>
 
-      <div className="h-8 w-px bg-border/70" />
+      {/* Divider */}
+      <div className="h-9 w-px shrink-0 bg-border/70" />
 
-      <div className="flex min-w-0 flex-1 items-center gap-4">
+      {/* Pet */}
+      <div className="flex min-w-0 flex-1 items-center gap-3">
         <PetAvatar pet={appointment.pet} />
 
         <div className="min-w-0">
-          <p className="font-medium text-text-primary">
+          <p className="truncate font-medium text-text-primary">
             {appointment.pet.name}
           </p>
 
-          <p className="mt-0.5 text-sm text-text-secondary">
+          <p className="mt-0.5 truncate text-sm text-text-secondary">
             {appointment.type}
           </p>
         </div>
-      </div>
-
-      {/* Owner */}
-      <div className="hidden w-36 shrink-0 md:block">
-        <p className="text-sm text-text-secondary">{appointment.owner.name}</p>
       </div>
 
       {/* Status */}
@@ -64,6 +60,7 @@ function AppointmentItem({ appointment, isLast }) {
       {/* Action */}
       <ChevronRight
         size={18}
+        strokeWidth={1.8}
         className="
           shrink-0
           text-text-secondary
