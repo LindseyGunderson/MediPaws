@@ -10,7 +10,7 @@ function AppointmentDateGroup({ date, appointments }) {
     <section>
       <Card>
         {/* Date Header */}
-        <div className="flex items-center justify-between gap-4 px-6 py-5">
+        <div className="flex items-center justify-between gap-4 px-5 py-5 md:px-6">
           <div>
             <h2 className="text-xl font-semibold tracking-tight text-text-primary">
               {formattedDate}
@@ -37,15 +37,22 @@ function AppointmentDateGroup({ date, appointments }) {
             uppercase
             tracking-wide
             text-text-secondary
+
             md:grid
-            md:grid-cols-[80px_minmax(160px,1.2fr)_minmax(140px,1fr)_minmax(160px,1.2fr)_120px_120px]
+            md:grid-cols-[80px_minmax(200px,1fr)_minmax(160px,1.2fr)_120px_104px]
             md:items-center
-            md:gap-5
+            md:gap-4
+
+            lg:grid-cols-[80px_minmax(160px,1.2fr)_minmax(140px,1fr)_minmax(160px,1.2fr)_120px_120px]
+            lg:gap-5
           "
         >
           <span>Time</span>
           <span>Pet</span>
-          <span>Owner</span>
+
+          {/* Owner only gets its own column on desktop */}
+          <span className="hidden lg:block">Owner</span>
+
           <span>Appointment</span>
           <span>Status</span>
           <span className="text-right">Actions</span>

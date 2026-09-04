@@ -154,9 +154,9 @@ function AppointmentFilters({
         </div>
 
         {/* Filters */}
-        <div className="flex w-full flex-wrap gap-3 lg:w-auto lg:flex-nowrap">
+        <div className="flex w-full flex-wrap gap-3 md:w-auto lg:flex-nowrap">
           {/* Status */}
-          <div className="relative min-w-0 flex-1 sm:flex-none">
+          <div className="relative min-w-0 w-full flex sm:w-fit sm:flex-none">
             <label htmlFor="appointment-status" className="sr-only">
               Filter by status
             </label>
@@ -189,7 +189,7 @@ function AppointmentFilters({
           </div>
 
           {/* Date */}
-          <div className="relative min-w-0 flex-1 sm:flex-none">
+          <div className="relative min-w-0 w-full flex sm:w-fit sm:flex-none">
             <label htmlFor="appointment-date" className="sr-only">
               Filter by date
             </label>
@@ -222,7 +222,7 @@ function AppointmentFilters({
           </div>
 
           {/* Appointment Type */}
-          <div className="relative min-w-0 flex-1 sm:flex-none">
+          <div className="relative min-w-0 w-full flex sm:w-fit sm:flex-none">
             <label htmlFor="appointment-type" className="sr-only">
               Filter by appointment type
             </label>

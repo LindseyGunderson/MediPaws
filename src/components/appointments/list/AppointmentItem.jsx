@@ -37,39 +37,70 @@ function AppointmentItem({ appointment, isLast }) {
         grid
         items-center
         gap-4
-        px-8
-        py-6
+        px-5
+        py-5
         transition-colors
         duration-150
         hover:bg-surface-muted
-        md:grid-cols-[80px_minmax(160px,1.2fr)_minmax(140px,1fr)_minmax(160px,1.2fr)_120px_120px]
+        md:px-6
+        md:py-6
+        md:grid-cols-[80px_minmax(200px,1fr)_minmax(160px,1.2fr)_120px_104px]
+        lg:grid-cols-[80px_minmax(160px,1.2fr)_minmax(140px,1fr)_minmax(160px,1.2fr)_120px_120px]
         ${!isLast ? "border-b border-border/30" : ""}
       `}
     >
       {/* Time */}
-      <div>
+      <div
+        className="
+          col-start-1
+          row-start-2
+          md:col-auto
+          md:row-auto
+        "
+      >
         <p className="text-sm font-semibold tracking-tight text-text-primary">
           {formatTimeForDisplay(appointment.time)}
         </p>
       </div>
 
       {/* Pet */}
-      <div className="flex min-w-0 items-center gap-3">
-        <PetAvatar pet={appointment.pet} />
+      <div
+        className="
+          col-start-1
+          row-start-1
+          min-w-0
+          md:col-auto
+          md:row-auto
+        "
+      >
+        <div className="flex min-w-0 items-center gap-3">
+          <PetAvatar pet={appointment.pet} />
 
-        <div className="min-w-0">
-          <p className="truncate font-medium text-text-primary">
-            {appointment.pet.name}
-          </p>
+          <div className="min-w-0">
+            <p className="truncate font-medium text-text-primary">
+              {appointment.pet.name}
+            </p>
 
-          <p className="mt-0.5 truncate text-sm text-text-secondary">
-            {appointment.pet.breed}
-          </p>
+            <p className="mt-0.5 truncate text-sm text-text-secondary">
+              {appointment.pet.breed}
+            </p>
+
+            {/* Owner shown beneath pet on tablet */}
+            <p className="mt-0.5 truncate text-sm text-text-secondary lg:hidden">
+              {appointment.owner.name}
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Owner */}
-      <div className="min-w-0">
+      <div
+        className="
+          hidden
+          lg:block
+          min-w-0
+        "
+      >
         <p className="truncate text-sm font-medium text-text-primary">
           {appointment.owner.name}
         </p>
@@ -80,17 +111,47 @@ function AppointmentItem({ appointment, isLast }) {
       </div>
 
       {/* Appointment Type */}
-      <div className="min-w-0">
-        <p className="truncate text-sm text-text-primary">{appointment.type}</p>
+      <div
+        className="
+          col-start-1
+          row-start-3
+          min-w-0
+          md:col-auto
+          md:row-auto
+        "
+      >
+        <p className="truncate text-sm text-text-primary">
+          {appointment.type}
+        </p>
       </div>
 
       {/* Status */}
-      <div>
+      <div
+        className="
+          col-start-2
+          row-start-1
+          justify-self-end
+          md:col-auto
+          md:row-auto
+          md:justify-self-start
+        "
+      >
         <AppointmentStatusBadge appointment={appointment} />
       </div>
 
       {/* Actions */}
-      <div className="flex items-end justify-end gap-1">
+      <div
+        className="
+          col-start-2
+          row-start-3
+          flex
+          items-end
+          justify-end
+          gap-1
+          md:col-auto
+          md:row-auto
+        "
+      >
         {/* Check In */}
         <button
           type="button"
@@ -98,19 +159,10 @@ function AppointmentItem({ appointment, isLast }) {
           title="Check in"
           onClick={() => checkInAppointment(appointment.id)}
           className="
-            flex
-            h-8
-            w-8
-            items-center
-            justify-center
-            rounded-md
-            text-text-secondary
-            transition-colors
-            hover:bg-surface
-            hover:text-text-primary
-            focus:outline-none
-            focus-visible:ring-2
-            focus-visible:ring-primary/30
+            flex h-8 w-8 items-center justify-center rounded-md
+            text-text-secondary transition-colors
+            hover:bg-surface hover:text-text-primary
+            focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30
           "
         >
           <Check size={17} strokeWidth={1.8} />
@@ -123,19 +175,10 @@ function AppointmentItem({ appointment, isLast }) {
           title="Reschedule"
           onClick={handleReschedule}
           className="
-            flex
-            h-8
-            w-8
-            items-center
-            justify-center
-            rounded-md
-            text-text-secondary
-            transition-colors
-            hover:bg-surface
-            hover:text-text-primary
-            focus:outline-none
-            focus-visible:ring-2
-            focus-visible:ring-primary/30
+            flex h-8 w-8 items-center justify-center rounded-md
+            text-text-secondary transition-colors
+            hover:bg-surface hover:text-text-primary
+            focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30
           "
         >
           <CalendarClock size={17} strokeWidth={1.8} />
@@ -150,19 +193,10 @@ function AppointmentItem({ appointment, isLast }) {
             title="More actions"
             onClick={() => setIsMenuOpen((open) => !open)}
             className="
-              flex
-              h-8
-              w-8
-              items-center
-              justify-center
-              rounded-md
-              text-text-secondary
-              transition-colors
-              hover:bg-surface
-              hover:text-text-primary
-              focus:outline-none
-              focus-visible:ring-2
-              focus-visible:ring-primary/30
+              flex h-8 w-8 items-center justify-center rounded-md
+              text-text-secondary transition-colors
+              hover:bg-surface hover:text-text-primary
+              focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30
             "
           >
             <MoreHorizontal size={18} strokeWidth={1.8} />
@@ -171,18 +205,9 @@ function AppointmentItem({ appointment, isLast }) {
           {isMenuOpen && (
             <div
               className="
-                absolute
-                right-0
-                top-full
-                z-20
-                mt-2
-                w-44
-                overflow-hidden
-                rounded-md
-                bg-surface
-                p-2
-                shadow-lg
-                shadow-card
+                absolute right-0 top-full z-20 mt-2 w-44
+                overflow-hidden rounded-md bg-surface p-2
+                shadow-lg shadow-card
               "
             >
               {/* View Details */}
@@ -190,16 +215,8 @@ function AppointmentItem({ appointment, isLast }) {
                 to={`/appointments/${appointment.id}`}
                 onClick={() => setIsMenuOpen(false)}
                 className="
-                  flex
-                  w-full
-                  items-center
-                  gap-3
-                  rounded-md
-                  px-3
-                  py-2
-                  text-sm
-                  text-text-primary
-                  transition-colors
+                  flex w-full items-center gap-3 rounded-md px-3 py-2
+                  text-sm text-text-primary transition-colors
                   hover:bg-surface-muted
                 "
               >
@@ -212,16 +229,8 @@ function AppointmentItem({ appointment, isLast }) {
                 type="button"
                 onClick={handleEdit}
                 className="
-                  flex
-                  w-full
-                  items-center
-                  gap-3
-                  rounded-md
-                  px-3
-                  py-2
-                  text-sm
-                  text-text-primary
-                  transition-colors
+                  flex w-full items-center gap-3 rounded-md px-3 py-2
+                  text-sm text-text-primary transition-colors
                   hover:bg-surface-muted
                 "
               >
@@ -246,18 +255,9 @@ function AppointmentItem({ appointment, isLast }) {
                   setIsMenuOpen(false);
                 }}
                 className="
-                  flex
-                  w-full
-                  items-center
-                  gap-3
-                  rounded-md
-                  px-3
-                  py-2
-                  text-sm
-                  text-text-secondary
-                  transition-colors
-                  hover:bg-surface-muted
-                  hover:text-red-600
+                  flex w-full items-center gap-3 rounded-md px-3 py-2
+                  text-sm text-text-secondary transition-colors
+                  hover:bg-surface-muted hover:text-red-600
                 "
               >
                 <X size={16} strokeWidth={1.8} />
