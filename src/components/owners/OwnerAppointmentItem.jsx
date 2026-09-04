@@ -1,7 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import AppointmentStatusBadge from "../appointments/AppointmentStatusBadge";
+import AppointmentStatusBadge from "../appointments/shared/AppointmentStatusBadge";
 import { formatDate } from "../../utils/dates";
 
 function OwnerAppointmentItem({ appointment }) {

@@ -1,7 +1,7 @@
 import { ChevronLeft, Clock3 } from "lucide-react";
 import { Link } from "react-router-dom";
-import AppointmentStatusBadge from "./AppointmentStatusBadge";
-import AppointmentActions from "./AppointmentActions";
+import AppointmentStatusBadge from "./shared/AppointmentStatusBadge";
+import AppointmentActions from "./shared/AppointmentActions";
 import { formatTimeForDisplay } from "../../utils/dates";
 
 function AppointmentHeader({ appointment, onEdit }) {

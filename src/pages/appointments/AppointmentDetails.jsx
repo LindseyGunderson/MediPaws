@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import { useAppointments } from "../../context/AppointmentContext";
 
 import AppointmentHeader from "../../components/appointments/AppointmentHeader";
-import AppointmentInfo from "../../components/appointments/AppointmentInfo";
-import AppointmentPatientInfo from "../../components/appointments/AppointmentPatientInfo";
-import AppointmentEditDrawer from "../../components/appointments/AppointmentEditDrawer";
+import AppointmentInfo from "../../components/appointments/details/AppointmentInfo";
+import AppointmentPatientInfo from "../../components/appointments/details/AppointmentPatientInfo";
+import AppointmentEditDrawer from "../../components/appointments/details/AppointmentEditDrawer";
 
 function AppointmentDetails() {
   const { id } = useParams();

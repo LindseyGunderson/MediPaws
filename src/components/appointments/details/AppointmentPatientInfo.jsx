@@ -1,7 +1,7 @@
 import { UserRound } from "lucide-react";
 
-import Card from "../ui/Card";
-import PetAvatar from "../pets/PetAvatar";
+import Card from "../../ui/Card";
+import PetAvatar from "../../pets/PetAvatar";
 
 function AppointmentPatientInfo({ appointment }) {
   const { pet, owner } = appointment;

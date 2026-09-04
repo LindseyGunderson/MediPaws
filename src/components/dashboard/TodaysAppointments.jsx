@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
-import AppointmentItem from "../appointments/AppointmentItem";
+import AppointmentItem from "../appointments/list/AppointmentItem";
 import Card from "../ui/Card";
 
 function TodaysAppointments({ appointments }) {

@@ -5,7 +5,7 @@ export const appointments = [
     ownerId: 1,
     date: "2026-09-03",
     time: "09:00",
-    type: "Wellness Exam",
+    type: "wellnessExam",
     status: "completed",
   },
   {
@@ -14,7 +14,7 @@ export const appointments = [
     ownerId: 2,
     date: "2026-09-03",
     time: "10:30",
-    type: "Vaccination",
+    type: "vaccination",
     status: "inProgress",
   },
   {
@@ -23,7 +23,7 @@ export const appointments = [
     ownerId: 1,
     date: "2026-09-03",
     time: "11:15",
-    type: "Wellness Checkup",
+    type: "wellnessCheckup",
     status: "scheduled",
   },
   {
@@ -32,7 +32,7 @@ export const appointments = [
     ownerId: 1,
     date: "2026-09-03",
     time: "13:00",
-    type: "Follow-up",
+    type: "followUp",
     status: "scheduled",
   },
   {
@@ -41,7 +41,7 @@ export const appointments = [
     ownerId: 1,
     date: "2026-09-03",
     time: "15:30",
-    type: "Surgery",
+    type: "surgery",
     status: "scheduled",
   },
   {
@@ -50,7 +50,7 @@ export const appointments = [
     ownerId: 1,
     date: "2026-09-05",
     time: "09:30",
-    type: "Dental Cleaning",
+    type: "dentalCleaning",
     status: "scheduled",
   },
   {
@@ -59,7 +59,7 @@ export const appointments = [
     ownerId: 2,
     date: "2026-09-05",
     time: "10:00",
-    type: "Vaccination",
+    type: "vaccination",
     status: "scheduled",
   },
   {
@@ -68,7 +68,7 @@ export const appointments = [
     ownerId: 1,
     date: "2026-08-18",
     time: "14:00",
-    type: "Wellness Exam",
+    type: "wellnessExam",
     status: "scheduled",
   },
   {
@@ -77,7 +77,7 @@ export const appointments = [
     ownerId: 1,
     date: "2026-08-20",
     time: "11:00",
-    type: "Surgery",
+    type: "surgery",
     status: "scheduled",
   },
 ];

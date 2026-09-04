@@ -1,4 +1,4 @@
-import { getAppointmentDisplayStatus } from "../../helpers/appointments";
+import { getAppointmentDisplayStatus } from "../../../helpers/appointments";
 
 function AppointmentStatusBadge({ appointment }) {
   const displayStatus = getAppointmentDisplayStatus(appointment);

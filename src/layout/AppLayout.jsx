@@ -17,7 +17,7 @@ function AppLayout({ children }) {
         grid
         h-screen
         overflow-hidden
-        bg-background
+        bg-[#FAFAFC]
         transition-[grid-template-columns]
         duration-200
         ${

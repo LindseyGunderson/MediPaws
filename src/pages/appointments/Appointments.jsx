@@ -1,80 +1,67 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
+import ActionButton from "../../components/ui/ActionButton";
 
-import AppointmentFilters from "../../components/appointments/AppointmentFilter";
-import AppointmentList from "../../components/appointments/AppointmentList";
+import AppointmentFilters from "../../components/appointments/list/AppointmentFilters";
+import AppointmentList from "../../components/appointments/list/AppointmentList";
 
 import { useAppointments } from "../../context/AppointmentContext";
+import { filterAppointments } from '../../helpers/appointments';
 
 function Appointments() {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("all");
+  const [dateFilter, setDateFilter] = useState("all");
+  const [type, setType] = useState("all");
 
   const { appointments } = useAppointments();
 
-  const filteredAppointments = appointments.filter((appointment) => {
-    const searchValue = search.trim().toLowerCase();
-
-    const petName = appointment.pet?.name?.toLowerCase() ?? "";
-    const ownerName = appointment.owner?.name?.toLowerCase() ?? "";
-
-    const matchesSearch =
-      petName.includes(searchValue) || ownerName.includes(searchValue);
-
-    const matchesStatus = status === "all" || appointment.status === status;
-
-    return matchesSearch && matchesStatus;
+  const filteredAppointments = filterAppointments(appointments, {
+    search,
+    status,
+    dateFilter,
+    type,
   });
 
   return (
-    <div className="space-y-10">
+    <div className="mx-auto w-full max-w-7xl space-y-10">
       {/* Header */}
-      <section
+      <header
         className="
           flex
           flex-col
-          gap-4
+          gap-8
+          border-b
+          border-border/70
+          pb-10
           sm:flex-row
           sm:items-end
           sm:justify-between
         "
       >
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-text-primary">
-            Appointments
+          <h1
+            className="
+              text-3xl
+              font-semibold
+              tracking-tight
+              text-text-primary
+              sm:text-4xl
+            "
+          >
+            <h1 className="text-3xl font-semibold tracking-tight text-text-primary">
+              Appointments
+            </h1>
           </h1>
-
-          <p className="mt-2 text-sm leading-6 text-text-secondary">
-            View and manage veterinary appointments.
-          </p>
         </div>
-
-        <Link
-          to="/appointments/new"
-          className="
-            inline-flex
-            items-center
-            justify-center
-            gap-2
-            rounded-md
-            bg-primary
-            px-4
-            py-2.5
-            text-sm
-            font-medium
-            text-white
-            shadow-sm
-            transition-all
-            hover:bg-primary-dark
-            hover:shadow-md
-            active:scale-[0.98]
-          "
-        >
-          <Plus size={16} aria-hidden="true" />
-          New Appointment
-        </Link>
-      </section>
+        <div>
+          <ActionButton
+            icon={Plus}
+            to="/appointments/new"
+            text="New Appointment"
+          />
+        </div>
+      </header>
 
       {/* Filters */}
       <AppointmentFilters
@@ -82,10 +69,14 @@ function Appointments() {
         setSearch={setSearch}
         status={status}
         setStatus={setStatus}
+        dateFilter={dateFilter}
+        setDateFilter={setDateFilter}
+        type={type}
+        setType={setType}
       />
-
-      {/* Appointments */}
-      <AppointmentList appointments={filteredAppointments} />
+      
+        {/* Appointments */}
+        <AppointmentList appointments={filteredAppointments} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { Check, Pencil, X } from "lucide-react";
-import { useAppointments } from "../../context/AppointmentContext";
+import { useAppointments } from "../../../context/AppointmentContext";
 
 function AppointmentActions({ appointment, onEdit }) {
   const { checkInAppointment, completeAppointment, cancelAppointment } =

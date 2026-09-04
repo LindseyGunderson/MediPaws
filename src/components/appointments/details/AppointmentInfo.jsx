@@ -1,6 +1,6 @@
 import { CalendarDays, Clock3, Stethoscope } from "lucide-react";
-import { formatDate, formatTimeForDisplay } from "../../utils/dates";
-import Card from "../ui/Card";
+import { formatDate, formatTimeForDisplay } from "../../../utils/dates";
+import Card from "../../../components/ui/Card";
 
 function AppointmentInfo({ appointment }) {
   return (

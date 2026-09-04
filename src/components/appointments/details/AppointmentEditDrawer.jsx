@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
-import { useAppointments } from "../../context/AppointmentContext";
-import PetAvatar from "../pets/PetAvatar";
+import { useAppointments } from "../../../context/AppointmentContext";
+import PetAvatar from "../../pets/PetAvatar";
 
-import { convertToTimeInput, formatTimeForDisplay } from "../../utils/dates"; 
+import { convertToTimeInput, formatTimeForDisplay } from "../../../utils/dates"; 
  
 function AppointmentEditDrawer({ appointment, isOpen, onClose }) {
   const { updateAppointment } = useAppointments();
@@ -15,7 +15,7 @@ function AppointmentEditDrawer({ appointment, isOpen, onClose }) {
   useEffect(() => {
     if (appointment) {
       setDate(appointment.date);
-      setTime(appointment.time);
+      setTime(convertToTimeInput(appointment.time));
       setType(appointment.type);
     }
   }, [appointment]);
@@ -25,7 +25,7 @@ function AppointmentEditDrawer({ appointment, isOpen, onClose }) {
 
     updateAppointment(appointment.id, {
       date,
-      time: formatTimeForDisplay(time),
+      time,
       type,
     });
 
